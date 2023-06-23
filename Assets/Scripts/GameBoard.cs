@@ -69,6 +69,8 @@ public class GameBoard
                 }
 
                 if(currentGroup.Count >= 4){
+                    GameUIController.instance.UpdateCombo(1);
+                    GameUIController.instance.UpdateScore(currentGroup.Count);
                     foreach(Transform puyo in currentGroup){
                         groupToDelete.Add(puyo);
                     }

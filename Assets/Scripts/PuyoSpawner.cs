@@ -42,6 +42,7 @@ public class PuyoSpawner : MonoBehaviour
             GameObject.Find("GameOverCanvas").GetComponent<CanvasGroup>().alpha = 1;
             enabled = false; 
         } else {
+            GameUIController.instance.ClearCombo();
             activePuyo = Instantiate((GameObject)Resources.Load("Puyo"), transform.position, Quaternion.identity).GetComponent<Puyo>();
         }
     }
