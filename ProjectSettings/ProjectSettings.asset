@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: "\u0433\u0432\u0430\u0433\u0430"
-  productName: "\u043F\u043E\u0434\u0430\u0440"
+  productName: "\u0438\u0433\u0440\u0443\u0448"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -271,7 +271,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 9e2c58644aa850e43a9fc5fff37fd3c1, type: 3}
+      m_Icon: {fileID: 2800000, guid: 019364d3ee814c84d8e72b43d66d028e, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

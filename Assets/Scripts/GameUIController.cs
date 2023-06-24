@@ -6,6 +6,8 @@ using TMPro;
 public class GameUIController : MonoBehaviour
 {
     public static GameUIController instance;
+    [SerializeField] private GameObject startCanvas;
+    [SerializeField] private GameObject endCanvas;
     [SerializeField] private TextMeshProUGUI comboText;
     [SerializeField] private TextMeshProUGUI scoreText;
     private int combo;
@@ -40,6 +42,17 @@ public class GameUIController : MonoBehaviour
         combo = 0;
         UpdateComboText();
     } 
+    
+    public void SetStartCanvas(bool what)
+    {
+        startCanvas.SetActive(what);
+    }
+
+    public void SetEndCanvas(bool what)
+    {
+        endCanvas.SetActive(what);  
+    }
+
     private void UpdateComboText()
     {
         comboText.text = combo.ToString();

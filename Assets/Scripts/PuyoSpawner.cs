@@ -45,7 +45,8 @@ public class PuyoSpawner : MonoBehaviour
     IEnumerator DelaySpawn(){
         yield return new WaitUntil(() => !GameBoard.AnyFallingBlocks() && !GameBoard.WhatToDelete());
         if(GameIsOver()){
-            GameObject.Find("GameOverCanvas").GetComponent<CanvasGroup>().alpha = 1;
+            //GameObject.Find("GameOverCanvas").GetComponent<CanvasGroup>().alpha = 1;
+            GameUIController.instance.SetEndCanvas(true);
             enabled = false; 
         } else {
             GameUIController.instance.ClearCombo();
