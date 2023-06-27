@@ -13,15 +13,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A)){
+        if(Input.GetKeyDown(KeyCode.A)|| Input.GetKeyDown(KeyCode.LeftArrow)){
             puyo.MoveLeft();
-        } else if(Input.GetKeyDown(KeyCode.D)){
+        } else if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
             puyo.MoveRight();
-        } else if(Input.GetKey(KeyCode.S)){
+        } else if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        {
             puyo.MoveDown();
         //} else if(Input.GetKeyDown(KeyCode.Q)){
         //    puyo.RotateLeft();
-        } else if(Input.GetKeyDown(KeyCode.W)){
+        } else if(Input.GetKeyDown(KeyCode.W)|| Input.GetKeyDown(KeyCode.UpArrow))
+        {
             puyo.RotateRight();
         }
     }
