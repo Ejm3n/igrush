@@ -16,6 +16,11 @@ public class Puyo : MonoBehaviour
 
     private bool puyoUnitDropsFinished = false;
 
+    private bool canBeMovedDown = true;
+    private float moveDownDefaultDelay = .03f;
+    private float moveDownDelay;
+    
+
     void Start()
     {
         unitArray[0] = Instantiate((GameObject)Resources.Load("PuyoUnit"), transform.position, Quaternion.identity);
@@ -23,11 +28,22 @@ public class Puyo : MonoBehaviour
         unitArray[0].transform.parent = gameObject.transform;
         unitArray[1].transform.parent = gameObject.transform;
         UpdateGameBoard();
+        moveDownDelay = moveDownDefaultDelay;
+        
     }
 
     void Update()
     {
         AutoDrop();
+        if(moveDownDelay>0)
+        {
+            canBeMovedDown = false;
+            moveDownDelay -= Time.deltaTime;
+        }
+        else
+        {
+            canBeMovedDown = true;
+        }
         // GameBoard.DebugBoard();           
     }
 
@@ -44,22 +60,28 @@ public class Puyo : MonoBehaviour
     // Movement //
     //////////////
 
-    public void MoveLeft(){
-        if(ValidMove(left)){
+    public bool MoveLeft(){
+        if (ValidMove(left))
+        {
             Move(left, transform);
+            return true;
         }
+        else return false;
     }
 
-    public void MoveRight(){
+    public bool MoveRight(){
         if(ValidMove(right)){
             Move(right, transform);
+            return true;
         }
+        else return false;
     }
 
     public void MoveDown(){
-        if(ValidMove(down)){
+        if(ValidMove(down) && canBeMovedDown){
+            moveDownDelay = moveDownDefaultDelay;
             Move(down, transform);
-        } else {
+        } else if(!ValidMove(down)) {
             DisableSelf();
         }
     }
@@ -69,12 +91,35 @@ public class Puyo : MonoBehaviour
         if(ValidRotate(vect)){
             Move(vect, unitArray[1].transform);
         }
+        //else
+        //{
+        //    vect = GetCounterClockwiseRotationVector();
+        //    Move(left, transform);
+        //    Move(vect, unitArray[1].transform);
+        //}
     }
 
     public void RotateRight(){
         Vector3 vect = GetCounterClockwiseRotationVector();
         if(ValidRotate(vect)){
             Move(vect, unitArray[1].transform);
+        }
+        else
+        {
+            if(IsTetrominoStateUp())
+            {
+                if(MoveLeft())
+                {
+                    RotateRight();
+                }
+            }
+            else
+            {
+                if(MoveRight())
+                {
+                    RotateRight();
+                }
+            }
         }
     }
 
@@ -126,6 +171,13 @@ public class Puyo : MonoBehaviour
         }
         
         return new Vector3(0, 0);
+    }
+
+    private bool IsTetrominoStateUp()    //если делать разворот в обу стороны то сделать енам вместо булки
+    {
+        if (Vector3.Distance(RoundVector(unitArray[1].transform.position) + up, transform.position) == 0)
+            return true;
+        else return false;
     }
 
     bool ActivelyFalling(){
@@ -184,4 +236,6 @@ public class Puyo : MonoBehaviour
 
         GameObject.Find("PuyoSpawner").GetComponent<PuyoSpawner>().SpawnPuyo();
     }
+
+ 
 }

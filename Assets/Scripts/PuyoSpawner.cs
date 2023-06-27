@@ -74,7 +74,7 @@ public class PuyoSpawner : MonoBehaviour
                     downscaling = true;
             }
             Debug.Log("puyo speed = " + PuyoSpeed);
-            Debug.Log("upscaling? " + downscaling);
+            Debug.Log("downscaling? " + downscaling);
 
         }
         
