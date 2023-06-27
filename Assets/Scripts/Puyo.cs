@@ -17,7 +17,7 @@ public class Puyo : MonoBehaviour
     private bool puyoUnitDropsFinished = false;
 
     private bool canBeMovedDown = true;
-    private float moveDownDefaultDelay = .03f;
+    [SerializeField] private float moveDownDefaultDelay = .03f;
     private float moveDownDelay;
     
 
