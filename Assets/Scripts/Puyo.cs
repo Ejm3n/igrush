@@ -2,6 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public enum PuyoState
+{
+    Up,
+    UpsideDown,
+    Left,
+    Right
+}
+
+
 public class Puyo : MonoBehaviour
 {
     public GameObject[] unitArray = new GameObject[2];
@@ -106,7 +116,7 @@ public class Puyo : MonoBehaviour
         }
         else if (unitArray[1].transform.position.y < 11) // этот ужас переделать потом какнибудь 
         {
-            if(IsTetrominoStateUp() &&  (MoveLeft()))
+            if(GetTetrominoState() == PuyoState.Up &&  (MoveLeft()))
             {                           
                     RotateRight();
                 
@@ -117,10 +127,15 @@ public class Puyo : MonoBehaviour
                     RotateRight();
                 }
             }
-            else if(!MoveLeft() && !MoveRight())
+            else if(!MoveLeft() && !MoveRight() && (GetTetrominoState() == PuyoState.UpsideDown|| GetTetrominoState() == PuyoState.Up))
             {
                 SwapUnits();
             }
+        }
+        else
+        {
+            MoveDown();
+            RotateRight();
         }
     }
 
@@ -184,12 +199,19 @@ public class Puyo : MonoBehaviour
         return new Vector3(0, 0);
     }
 
-    private bool IsTetrominoStateUp()    //если делать разворот в обу стороны то сделать енам вместо булки
+    private PuyoState GetTetrominoState()    //если делать разворот в обу стороны то сделать енам вместо булки
     {
         if (Vector3.Distance(RoundVector(unitArray[1].transform.position) + up, transform.position) == 0)
-            return true;
-        else return false;
+            return PuyoState.Up;
+        else if((Vector3.Distance(RoundVector(unitArray[1].transform.position) + down, transform.position) == 0))
+            return PuyoState.UpsideDown;
+        else if ((Vector3.Distance(RoundVector(unitArray[1].transform.position) + left, transform.position) == 0))
+                return PuyoState.Right;
+        else
+            return PuyoState.Left;
     }
+
+   
 
     bool ActivelyFalling(){
         return unitArray[0].GetComponent<PuyoUnit>().activelyFalling ||
@@ -245,7 +267,7 @@ public class Puyo : MonoBehaviour
     IEnumerator SpawnNextBlock(){
         yield return new WaitUntil(() => !ActivelyFalling());
 
-        GameObject.Find("PuyoSpawner").GetComponent<PuyoSpawner>().SpawnPuyo();
+        GameObject.Find("PuyoSpawner").GetComponent<PuyoSpawner>().SpawnPuyo();// эту гадость вынести в гей контролер
     }
 
  
