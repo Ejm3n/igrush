@@ -43,6 +43,12 @@ public class PuyoUnit : MonoBehaviour
         StartCoroutine(DropToFloor());
     }
 
+    public void ChangeToOtherColor(int index)
+    {
+        colorIdx = index;
+        GetComponent<SpriteRenderer>().sprite = puyoSpriteArray[colorIdx];
+    }
+
     public Vector3 RoundVector(Vector3 vect){
         return new Vector2(Mathf.Round(vect.x), Mathf.Round(vect.y));
     }

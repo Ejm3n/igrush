@@ -101,23 +101,25 @@ public class Puyo : MonoBehaviour
 
     public void RotateRight(){
         Vector3 vect = GetCounterClockwiseRotationVector();
-        if(ValidRotate(vect)){
+        if(ValidRotate(vect)){            
             Move(vect, unitArray[1].transform);
         }
-        else if (unitArray[1].transform.position.y < 11)
+        else if (unitArray[1].transform.position.y < 11) // этот ужас переделать потом какнибудь 
         {
-            if(IsTetrominoStateUp())
-            {
-                if(MoveLeft())
-                {
+            if(IsTetrominoStateUp() &&  (MoveLeft()))
+            {                           
                     RotateRight();
-                }
+                
             }
             else if (MoveRight())
             {             
                 {
                     RotateRight();
                 }
+            }
+            else if(!MoveLeft() && !MoveRight())
+            {
+                SwapUnits();
             }
         }
     }
@@ -138,6 +140,16 @@ public class Puyo : MonoBehaviour
         foreach(Transform puyoUnit in transform){
             GameBoard.Add(puyoUnit.position.x, puyoUnit.position.y, puyoUnit);
         }
+    }
+
+    private void SwapUnits()
+    {
+        PuyoUnit var0 = unitArray[0].GetComponent<PuyoUnit>();
+        PuyoUnit var1 = unitArray[1].GetComponent<PuyoUnit>();
+        int var0Index = var0.colorIdx;
+        var0.ChangeToOtherColor(var1.colorIdx);
+        var1.ChangeToOtherColor(var0Index);
+
     }
 
     Vector3 GetClockwiseRotationVector(){
