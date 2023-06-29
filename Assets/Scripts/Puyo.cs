@@ -127,7 +127,7 @@ public class Puyo : MonoBehaviour
                     RotateRight();
                 }
             }
-            else if(!MoveLeft() && !MoveRight() && (GetTetrominoState() == PuyoState.UpsideDown|| GetTetrominoState() == PuyoState.Up))
+            else if(!MoveLeft() && !MoveRight())
             {
                 SwapUnits();
             }
