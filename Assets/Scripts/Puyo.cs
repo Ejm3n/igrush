@@ -104,7 +104,7 @@ public class Puyo : MonoBehaviour
         if(ValidRotate(vect)){
             Move(vect, unitArray[1].transform);
         }
-        else
+        else if (unitArray[1].transform.position.y < 11)
         {
             if(IsTetrominoStateUp())
             {
@@ -113,9 +113,8 @@ public class Puyo : MonoBehaviour
                     RotateRight();
                 }
             }
-            else
-            {
-                if(MoveRight())
+            else if (MoveRight())
+            {             
                 {
                     RotateRight();
                 }

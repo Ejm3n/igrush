@@ -9,6 +9,7 @@ public class PuyoSpawner : MonoBehaviour
     [SerializeField] private float PuyoMinSpeed = 1;
     [SerializeField] private float PuyoMaxSpeed = 2;
     [SerializeField] private float PuyoSpeedStep = 0.25f;
+    [SerializeField] private float delaySpawn = 0.3f;
     private Puyo activePuyo;
   
     // private Canvas gameOver; 
@@ -44,7 +45,8 @@ public class PuyoSpawner : MonoBehaviour
 
     IEnumerator DelaySpawn(){
         yield return new WaitUntil(() => !GameBoard.AnyFallingBlocks() && !GameBoard.WhatToDelete());
-        if(GameIsOver()){
+        yield return new WaitForSeconds(delaySpawn);
+        if (GameIsOver()){
             //GameObject.Find("GameOverCanvas").GetComponent<CanvasGroup>().alpha = 1;
             GameUIController.instance.SetEndCanvas(true);
             enabled = false; 

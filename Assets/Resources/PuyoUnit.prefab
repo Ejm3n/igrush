@@ -98,6 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3879a20930fd2a54bafaf4acd9b2332b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activelyFalling: 1
+  forcedDownwards: 0
+  colorIdx: 0
+  TimeToDropNextStep: 0.15
   puyoSpriteArray:
   - {fileID: 21300000, guid: 019364d3ee814c84d8e72b43d66d028e, type: 3}
   - {fileID: 21300000, guid: 98fd09483b5e87e4c8e8c9568272bcde, type: 3}
@@ -106,9 +110,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 77c0e7e7fe7bcfa42981732d160d3c02, type: 3}
   - {fileID: 21300000, guid: 8184a4a4f052fbc4aa031c49eabad3a8, type: 3}
   - {fileID: 21300000, guid: 0275677f71fd3174d8c681716bfb53f4, type: 3}
-  activelyFalling: 1
-  forcedDownwards: 0
-  colorIdx: 0
 --- !u!95 &848117614230498169
 Animator:
   serializedVersion: 4

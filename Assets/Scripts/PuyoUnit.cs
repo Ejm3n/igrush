@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PuyoUnit : MonoBehaviour
-{
-    [SerializeField] private Sprite[] puyoSpriteArray;
-    private Color[] colorArray = { Color.blue, Color.green, Color.red, Color.cyan };
-    
+{ 
     public bool activelyFalling = true;
     public bool forcedDownwards = false;
 
     public int colorIdx;
 
+    [SerializeField] private float TimeToDropNextStep = .1f;
+    [SerializeField] private Sprite[] puyoSpriteArray;
+    private Color[] colorArray = { Color.blue, Color.green, Color.red, Color.cyan };
+   
     void Awake(){
         colorIdx = Random.Range(0,puyoSpriteArray.Length);
         GetComponent<SpriteRenderer>().sprite = puyoSpriteArray[colorIdx];
     }
 
     public IEnumerator DropToFloor(){
-        WaitForSeconds wait = new WaitForSeconds( .25f );
+        WaitForSeconds wait = new WaitForSeconds( TimeToDropNextStep);
         Vector3 currentPos = RoundVector(gameObject.transform.position);
         for(int row = (int)currentPos.y - 1; row >= 0;  row--){
             int currentX = (int)currentPos.x;
