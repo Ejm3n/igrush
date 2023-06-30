@@ -98,6 +98,7 @@ public class GameBoard
     }
 
     static void AddNeighbors(Transform currentUnit, List<Transform> currentGroup ){
+        PuyoUnit puyoUnit = currentUnit.GetComponent<PuyoUnit>();
         Vector3[] directions = { Vector3.up, Vector3.down, Vector3.right, Vector3.left };
         if(currentGroup.IndexOf(currentUnit) == -1){
             currentGroup.Add(currentUnit);
@@ -112,6 +113,24 @@ public class GameBoard
             if(!IsEmpty(nextX, nextY) && ColorMatches(nextX, nextY, currentUnit)){
                 Transform nextUnit = gameBoard[nextX, nextY];
                 AddNeighbors(nextUnit, currentGroup);
+
+                //добавленный бред про сайды
+                if(direction == Vector3.up)
+                {
+                    puyoUnit.SetCorner(PuyoSide.Top, true);
+                }
+                else if (direction == Vector3.right)
+                {
+                    puyoUnit.SetCorner(PuyoSide.Right, true);
+                }
+                else if (direction == Vector3.left)
+                {
+                    puyoUnit.SetCorner(PuyoSide.Left, true);
+                }
+                else if (direction == Vector3.down)
+                {
+                    puyoUnit.SetCorner(PuyoSide.Bot, true);
+                }
             }
         }
     }

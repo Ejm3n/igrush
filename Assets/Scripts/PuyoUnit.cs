@@ -2,6 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class PuyoCorners
+{
+    public Sprite puyoLeftSide;
+    public Sprite puyoTopSide;
+    public Sprite puyoRightSide;
+    public Sprite puyoBotSide;
+}
+
+public enum PuyoSide
+{ 
+    Left,
+    Top,
+    Right,
+    Bot
+}
+
+[System.Serializable]
+public class SpriteSides
+{
+    public PuyoSide side;
+    public SpriteRenderer spriteRenderer;
+}
+
+
 public class PuyoUnit : MonoBehaviour
 { 
     public bool activelyFalling = true;
@@ -11,11 +36,33 @@ public class PuyoUnit : MonoBehaviour
 
     [SerializeField] private float TimeToDropNextStep = .1f;
     [SerializeField] private Sprite[] puyoSpriteArray;
+    [SerializeField] private PuyoCorners[] puyoCornersArray;
+    [SerializeField] private SpriteSides[] puyoSidesSpriteRenderers;
+    
     private Color[] colorArray = { Color.blue, Color.green, Color.red, Color.cyan };
    
     void Awake(){
         colorIdx = Random.Range(0,puyoSpriteArray.Length);
         GetComponent<SpriteRenderer>().sprite = puyoSpriteArray[colorIdx];
+       foreach (SpriteSides spriteSide in puyoSidesSpriteRenderers)
+        {
+            if(spriteSide.side == PuyoSide.Left)
+            {
+                spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoLeftSide;
+            }
+            else if (spriteSide.side == PuyoSide.Top)
+            {
+                spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoTopSide;
+            }
+            else if (spriteSide.side == PuyoSide.Right)
+            {
+                spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoRightSide;
+            }
+            else if (spriteSide.side == PuyoSide.Bot)
+            {
+                spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoBotSide;
+            }
+        }
     }
 
     public IEnumerator DropToFloor(){
@@ -51,5 +98,16 @@ public class PuyoUnit : MonoBehaviour
 
     public Vector3 RoundVector(Vector3 vect){
         return new Vector2(Mathf.Round(vect.x), Mathf.Round(vect.y));
+    }
+
+    public void SetCorner(PuyoSide side, bool what)
+    {
+        foreach (SpriteSides spriteSide in puyoSidesSpriteRenderers)
+        {
+            if (side == spriteSide.side)
+            {
+                spriteSide.spriteRenderer.enabled = what;
+            }            
+        }
     }
 }
