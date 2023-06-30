@@ -10,6 +10,7 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private GameObject endCanvas;
     [SerializeField] private TextMeshProUGUI comboText;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI bestScoreText;
     private int combo;
     private int score;
 
@@ -50,7 +51,9 @@ public class GameUIController : MonoBehaviour
 
     public void SetEndCanvas(bool what)
     {
-        endCanvas.SetActive(what);  
+        endCanvas.SetActive(what);
+        StatSaver.instance.SaveBestScore(score);
+        bestScoreText.text = StatSaver.instance.GetBestScore().ToString();
     }
 
     private void UpdateComboText()
