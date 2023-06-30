@@ -62,6 +62,7 @@ public class GameBoard
                 List<Transform> currentGroup = new List<Transform>();
 
                 if(gameBoard[col, row] != null){
+
                     Transform current = gameBoard[col, row];
                     if(groupToDelete.IndexOf(current) == -1){
                         AddNeighbors(current, currentGroup);
@@ -175,5 +176,13 @@ public class GameBoard
             boardContents += "\n";
         }
         text.text = boardContents;
+    }
+
+    private void DisableSides(PuyoUnit puyoUnit)
+    {
+        puyoUnit.SetCorner(PuyoSide.Top, false);
+        puyoUnit.SetCorner(PuyoSide.Left, false);
+        puyoUnit.SetCorner(PuyoSide.Right, false);
+        puyoUnit.SetCorner(PuyoSide.Bot, false);
     }
 }
