@@ -11,6 +11,8 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI comboText;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI bestScoreText;
+    [SerializeField] private SpriteRenderer bgSprite;
+    [SerializeField] private Sprite[] bgSprites;
     private int combo;
     private int score;
 
@@ -19,6 +21,7 @@ public class GameUIController : MonoBehaviour
     {
         if(instance==null)
             instance = this;
+        bgSprite.sprite = bgSprites[Random.Range(0, bgSprites.Length)];
     }
 
     public void UpdateScore(int whatToAdd)
