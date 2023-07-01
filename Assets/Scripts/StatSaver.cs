@@ -9,8 +9,7 @@ public class StatSaver : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-            instance = this;
-        Debug.Log(PlayerPrefs.GetInt(GlobalVariables.PlayerPrefs.BestScore, 0));
+            instance = this;      
     }
 
     public int GetBestScore()

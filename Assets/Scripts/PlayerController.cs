@@ -27,5 +27,9 @@ public class PlayerController : MonoBehaviour
         {
             puyo.RotateRight();
         }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameUIController.instance.PauseGame();
+        }
     }
 }
