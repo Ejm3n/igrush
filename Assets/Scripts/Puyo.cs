@@ -106,9 +106,8 @@ public class Puyo : MonoBehaviour
                 moveDownDelay = dropDownStepDelay;
                 Move(down, transform);
             }  
-            yield return new WaitForSeconds(moveDownDelay);
-        }   
-        DisableSelf();       
+            yield return new WaitForEndOfFrame();
+        }         
         yield return null;
     }
 

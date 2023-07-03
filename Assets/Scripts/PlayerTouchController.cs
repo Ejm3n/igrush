@@ -42,7 +42,7 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
 
     private void MoveDown()
     {
-        if (direction == Vector2.zero && puyo != null)
+        if (direction == Vector2.zero && puyo != null && puyo.enabled)
         {
             puyo.MoveDown();
         }
@@ -56,7 +56,7 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (puyo != null)
+        if (puyo != null && puyo.enabled)
         {
             if (Mathf.Abs(position.x - eventData.position.x) > 120 && (direction != Vector2.down && direction != Vector2.up)) // рср еярэ уюпдйнд дю 
             {
@@ -80,7 +80,7 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(puyo!=null)
+        if(puyo!=null && puyo.enabled)
         {
             if (direction == Vector2.down)
             {
