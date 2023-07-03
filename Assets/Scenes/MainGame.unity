@@ -3022,7 +3022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 955569f12bed6054cb6b216cd7d37d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puyo: {fileID: 0}
+  defaultTimeToStartFalling: 0.8
 --- !u!114 &1221419145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4297,7 +4297,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1320668212}
         m_TargetAssemblyTypeName: GameUIController, Assembly-CSharp
         m_MethodName: PauseGame
         m_Mode: 1
