@@ -51,6 +51,7 @@ MonoBehaviour:
   fallSpeed: 1
   interval: 0
   moveDownDefaultDelay: 0.08
+  dropDownStepDelay: 0.01
 --- !u!114 &6561337701616655516
 MonoBehaviour:
   m_ObjectHideFlags: 0

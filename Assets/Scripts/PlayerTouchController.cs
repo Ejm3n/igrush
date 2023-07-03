@@ -22,7 +22,10 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
         PuyoSpawner.NewPuyo -= UpdatePuyo;
     }
 
-
+    private void Update()
+    {
+        
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -55,7 +58,7 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
     {
         if (direction == Vector2.down)
         {
-            puyo.MoveDown();
+           StartCoroutine( puyo.DropDown());
         }
         else if (direction == Vector2.up)
         {

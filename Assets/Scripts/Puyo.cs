@@ -28,6 +28,7 @@ public class Puyo : MonoBehaviour
 
     private bool canBeMovedDown = true;
     [SerializeField] private float moveDownDefaultDelay = .03f;
+    [SerializeField] private float dropDownStepDelay = 0.01f;
     private float moveDownDelay;
     
 
@@ -96,6 +97,20 @@ public class Puyo : MonoBehaviour
         }
     }
 
+    public IEnumerator DropDown()
+    {
+        while (ValidMove(down) )
+        {
+            if(canBeMovedDown)
+            {
+                moveDownDelay = dropDownStepDelay;
+                Move(down, transform);
+            }  
+            yield return new WaitForSeconds(moveDownDelay);
+        }   
+        DisableSelf();       
+        yield return null;
+    }
 
     public void RotateLeft(){
         Vector3 vect = GetClockwiseRotationVector();
