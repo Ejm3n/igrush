@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PuyoSpawner : MonoBehaviour
 {
+    public static Action<Puyo> NewPuyo;
     [SerializeField] private float timeToSpeedUpdate = 60;
     [SerializeField] private float PuyoSpeed = 1;
     [SerializeField] private float PuyoMinSpeed = 1;
@@ -54,6 +56,7 @@ public class PuyoSpawner : MonoBehaviour
             GameUIController.instance.ClearCombo();
             activePuyo = Instantiate((GameObject)Resources.Load("Puyo"), transform.position, Quaternion.identity).GetComponent<Puyo>();
             activePuyo.fallSpeed = PuyoSpeed;
+            NewPuyo?.Invoke(activePuyo);
         }
     }
 

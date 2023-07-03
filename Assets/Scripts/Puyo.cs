@@ -96,6 +96,7 @@ public class Puyo : MonoBehaviour
         }
     }
 
+
     public void RotateLeft(){
         Vector3 vect = GetClockwiseRotationVector();
         if(ValidRotate(vect)){
@@ -260,14 +261,16 @@ public class Puyo : MonoBehaviour
     void DisableSelf(){
         gameObject.GetComponent<PlayerController>().enabled = false;
         DropPuyoUnits();
-        enabled = false;
+        enabled = false;      
         StartCoroutine(SpawnNextBlock());
+        
     }
 
     IEnumerator SpawnNextBlock(){
         yield return new WaitUntil(() => !ActivelyFalling());
 
         GameObject.Find("PuyoSpawner").GetComponent<PuyoSpawner>().SpawnPuyo();// эту гадость вынести в гей контролер
+        Destroy(this);
     }
 
  
