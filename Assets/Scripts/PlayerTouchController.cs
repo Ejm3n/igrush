@@ -5,7 +5,9 @@ using UnityEngine.EventSystems;
 
 public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHandler
 {
-    [SerializeField] private Puyo puyo;
+    [SerializeField] private float defaultTimeToStartFalling = .8f;
+    private float timeToStartFalling;
+    private Puyo puyo;
     private Vector2 direction;
     private Vector2 position;
     
@@ -14,7 +16,7 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
     private void OnEnable()
     {
         PuyoSpawner.NewPuyo += UpdatePuyo;
-
+        timeToStartFalling = defaultTimeToStartFalling;
     }
 
     private void OnDisable()
@@ -24,7 +26,26 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
 
     private void Update()
     {
-        
+        if(Input.GetMouseButton(0))
+        {
+            timeToStartFalling -= Time.deltaTime;
+            if(timeToStartFalling<=0)
+            {
+                MoveDown();                
+            }
+        }
+        else
+        {
+            timeToStartFalling = defaultTimeToStartFalling;
+        }
+    }
+
+    private void MoveDown()
+    {
+        if (direction == Vector2.zero && puyo != null)
+        {
+            puyo.MoveDown();
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -35,15 +56,18 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-        
-        if(Mathf.Abs(position.x - eventData.position.x)>130 && (direction!=Vector2.down && direction!=Vector2.up)) // рср еярэ уюпдйнд дю 
+        if (puyo != null)
         {
-            if ((position.x - eventData.position.x) < 0)
-                puyo.MoveRight();
-            else
-                puyo.MoveLeft();
-            position.x = eventData.position.x;
+            if (Mathf.Abs(position.x - eventData.position.x) > 120 && (direction != Vector2.down && direction != Vector2.up)) // рср еярэ уюпдйнд дю 
+            {
+                if ((position.x - eventData.position.x) < 0)
+                    puyo.MoveRight();
+                else
+                    puyo.MoveLeft();
+                position.x = eventData.position.x;
+            }
         }
+           
     }
 
     private void SwipeDetected(float deltaX, float deltaY)
@@ -56,14 +80,18 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (direction == Vector2.down)
+        if(puyo!=null)
         {
-           StartCoroutine( puyo.DropDown());
+            if (direction == Vector2.down)
+            {
+                StartCoroutine(puyo.DropDown());
+            }
+            else if (direction == Vector2.up)
+            {
+                puyo.RotateRight();
+            }
         }
-        else if (direction == Vector2.up)
-        {
-            puyo.RotateRight();
-        }
+       
         direction = Vector2.zero;
     }
 
