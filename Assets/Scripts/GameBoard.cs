@@ -56,15 +56,15 @@ public class GameBoard
     
     public static bool WhatToDelete(){
         List<Transform> groupToDelete = new List<Transform>();
-
-        for(int row = 0; row < 12; row++){
+        
+        for (int row = 0; row < 12; row++){
             for(int col = 0; col < 6; col++ ){
                 List<Transform> currentGroup = new List<Transform>();
 
                 if(gameBoard[col, row] != null){
-
-                    Transform current = gameBoard[col, row];
-                    if(groupToDelete.IndexOf(current) == -1){
+                    
+                    Transform current = gameBoard[col, row];       
+                    if (groupToDelete.IndexOf(current) == -1){
                         AddNeighbors(current, currentGroup);
                     }
                 }
