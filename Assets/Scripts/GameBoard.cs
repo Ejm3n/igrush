@@ -93,6 +93,7 @@ public class GameBoard
                 if(gameBoard[col, row] != null){
                     Transform puyoUnit = gameBoard[col,row];
                     puyoUnit.gameObject.GetComponent<PuyoUnit>().DropToFloorExternal();
+                    
                 }
             }
         }
@@ -100,6 +101,7 @@ public class GameBoard
 
     static void AddNeighbors(Transform currentUnit, List<Transform> currentGroup ){
         PuyoUnit puyoUnit = currentUnit.GetComponent<PuyoUnit>();
+        DisableSides(puyoUnit);
         Vector3[] directions = { Vector3.up, Vector3.down, Vector3.right, Vector3.left };
         if(currentGroup.IndexOf(currentUnit) == -1){
             currentGroup.Add(currentUnit);
@@ -146,15 +148,17 @@ public class GameBoard
         for(int row = 11; row >= 0; row--){
             for(int col = 0; col < 6; col++ ){     
                 if(gameBoard[col, row] != null){
-                    if(gameBoard[col, row].gameObject.GetComponent<PuyoUnit>().forcedDownwards){
+                    PuyoUnit puyoUnit = gameBoard[col, row].gameObject.GetComponent<PuyoUnit>();
+                    if (puyoUnit.forcedDownwards){
                         return true;
-                    } else if(gameBoard[col, row].gameObject.GetComponent<PuyoUnit>().activelyFalling){
+                    } else if(puyoUnit.activelyFalling)
+                    {
+
                         return true;
                     }
                 }
             }
         }
-
         return false;
     }
 
@@ -178,7 +182,7 @@ public class GameBoard
         text.text = boardContents;
     }
 
-    private void DisableSides(PuyoUnit puyoUnit)
+    private static void DisableSides(PuyoUnit puyoUnit)
     {
         puyoUnit.SetCorner(PuyoSide.Top, false);
         puyoUnit.SetCorner(PuyoSide.Left, false);

@@ -53,7 +53,7 @@ public class PuyoSpawner : MonoBehaviour
             GameUIController.instance.SetEndCanvas(true);
             enabled = false; 
         } else {
-            GameUIController.instance.ClearCombo();
+            StartCoroutine(GameUIController.instance.ClearCombo());
             activePuyo = Instantiate((GameObject)Resources.Load("Puyo"), transform.position, Quaternion.identity).GetComponent<Puyo>();
             activePuyo.fallSpeed = PuyoSpeed;
             NewPuyo?.Invoke(activePuyo);
