@@ -26,6 +26,10 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
 
     private void Update()
     {
+        if(Input.GetKeyUp(KeyCode.Home) || Input.GetKeyUp(KeyCode.Menu))
+        {
+            GameUIController.instance.PauseGame();
+        }
         if(Input.GetMouseButton(0))
         {
             timeToStartFalling -= Time.deltaTime;
