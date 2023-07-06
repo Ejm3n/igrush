@@ -13,7 +13,7 @@ public class PuyoSpawner : MonoBehaviour
     [SerializeField] private float PuyoSpeedStep = 0.25f;
     [SerializeField] private float delaySpawn = 0.3f;
     private Puyo activePuyo;
-  
+    
     // private Canvas gameOver; 
 
     void Start()
@@ -35,6 +35,7 @@ public class PuyoSpawner : MonoBehaviour
             GameBoard.gameBoard[(int)transform.position.x, (int)transform.position.y] != null ||
             GameBoard.gameBoard[(int)transform.position.x + 1, (int)transform.position.y] != null;
     }
+
 
     IEnumerator DelayDelete(){
         GameBoard.DropAllColumns();
