@@ -57,22 +57,25 @@ public class SoundManager : MonoBehaviour
 
     private IEnumerator PlayRandomMusic()
     {
-        AudioClip lastClip = null;
-        AudioClip currentClip = GetRandomMusic();
-        while(true)
+        if (music_AudioClips.Length > 0)
         {
-            if (!music_AudioSource.isPlaying)
-            {              
-                while (lastClip == currentClip)
+            AudioClip lastClip = null;
+            AudioClip currentClip = GetRandomMusic();
+            while (true)
+            {
+                if (!music_AudioSource.isPlaying)
                 {
-                    currentClip = GetRandomMusic();                  
+                    while (lastClip == currentClip)
+                    {
+                        currentClip = GetRandomMusic();
+                    }
+                    lastClip = currentClip;
+                    music_AudioSource.PlayOneShot(currentClip);
                 }
-                lastClip = currentClip;
-                music_AudioSource.PlayOneShot(currentClip);             
-            }              
-            yield return new WaitForEndOfFrame();
+                yield return new WaitForEndOfFrame();
+            }
         }
-       
+        yield break;
     }
 
     private AudioClip GetRandomMusic()

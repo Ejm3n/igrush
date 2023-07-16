@@ -5,10 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class PuyoCorners
 {
-    public Sprite puyoLeftSide;
-    public Sprite puyoTopSide;
-    public Sprite puyoRightSide;
-    public Sprite puyoBotSide;
+    public Sprite puyoHorizontalSide;
+    
+    public Sprite puyoVerticalSide;
 }
 
 public enum PuyoSide
@@ -24,6 +23,7 @@ public class SpriteSides
 {
     public PuyoSide side;
     public SpriteRenderer spriteRenderer;
+    public Animator animator;
 }
 
 
@@ -31,7 +31,7 @@ public class PuyoUnit : MonoBehaviour
 { 
     public bool activelyFalling = true;
     public bool forcedDownwards = false;
-
+    public bool handsAnim = false;
     public int colorIdx;
 
     [SerializeField] private float TimeToDropNextStep = .1f;
@@ -39,30 +39,13 @@ public class PuyoUnit : MonoBehaviour
     [SerializeField] private PuyoCorners[] puyoCornersArray;
     [SerializeField] private SpriteSides[] puyoSidesSpriteRenderers;
     
+    
     private Color[] colorArray = { Color.blue, Color.green, Color.red, Color.cyan };
    
     void Awake(){
         colorIdx = Random.Range(0,puyoSpriteArray.Length);
-        GetComponent<SpriteRenderer>().sprite = puyoSpriteArray[colorIdx];
-       foreach (SpriteSides spriteSide in puyoSidesSpriteRenderers)
-        {
-            if(spriteSide.side == PuyoSide.Left)
-            {
-                spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoLeftSide;
-            }
-            else if (spriteSide.side == PuyoSide.Top)
-            {
-                spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoTopSide;
-            }
-            else if (spriteSide.side == PuyoSide.Right)
-            {
-                spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoRightSide;
-            }
-            else if (spriteSide.side == PuyoSide.Bot)
-            {
-                spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoBotSide;
-            }
-        }
+        ChangeToOtherColor(colorIdx);
+       
     }
 
     public IEnumerator DropToFloor(){
@@ -94,10 +77,41 @@ public class PuyoUnit : MonoBehaviour
     {
         colorIdx = index;
         GetComponent<SpriteRenderer>().sprite = puyoSpriteArray[colorIdx];
+        foreach (SpriteSides spriteSide in puyoSidesSpriteRenderers)
+        {
+            if (spriteSide.side == PuyoSide.Left || spriteSide.side == PuyoSide.Right)
+            {
+                spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoHorizontalSide;
+            }
+            else if (spriteSide.side == PuyoSide.Top || spriteSide.side == PuyoSide.Bot)
+            {
+                spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoVerticalSide;
+                
+            }
+        }
+        
     }
-
     public Vector3 RoundVector(Vector3 vect){
         return new Vector2(Mathf.Round(vect.x), Mathf.Round(vect.y));
+    }
+
+    public void EnlargeHands(int blocksRange, PuyoSide side)
+    {
+        foreach (SpriteSides spriteSide in puyoSidesSpriteRenderers)
+        {
+            if(side == spriteSide.side)
+            {
+                spriteSide.animator.SetTrigger(blocksRange.ToString() + "Block");
+            }
+        }
+          
+    }
+    public void EnlargeHands()
+    {
+        foreach (SpriteSides spriteSide in puyoSidesSpriteRenderers)
+        { 
+                spriteSide.animator.SetTrigger("1Block");   
+        }
     }
 
     public void SetCorner(PuyoSide side, bool what)
