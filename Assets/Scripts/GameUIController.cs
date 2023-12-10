@@ -12,6 +12,7 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI comboText;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI bestScoreText;
+    [SerializeField] private TextMeshProUGUI bestScoreStartText;
     [SerializeField] private SpriteRenderer bgSprite;
     [SerializeField] private Sprite[] bgSprites;
     [SerializeField] private float comboFadeTime;
@@ -28,8 +29,12 @@ public class GameUIController : MonoBehaviour
         if(instance==null)
             instance = this;
         bgSprite.sprite = bgSprites[Random.Range(0, bgSprites.Length)];
+       
     }
-
+    private void Start()
+    {
+        SetStartCanvas(true);
+    }
     public void UpdateScore(int whatToAdd)
     {
         if (whatToAdd < 4)
@@ -57,6 +62,7 @@ public class GameUIController : MonoBehaviour
     public void SetStartCanvas(bool what)
     {
         startCanvas.SetActive(what);
+        bestScoreStartText.text = StatSaver.instance.GetBestScore().ToString();
     }
 
     public void SetEndCanvas(bool what)
