@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class GameBoard
 {
     public static Transform[,] gameBoard = new Transform[6,12];
+    private static int width = 6;
+    private static int height = 12;
 
     public static bool WithinBorders(Vector3 target){
         return target.x > -1 &&
-            target.x < 6 &&
+            target.x < width &&
             target.y > -1 && 
-            target.y < 12;
+            target.y < height;
     }
     public static bool FreeSpace(Vector3 target, Transform parentTransform){
         if(WithinBorders(target)){
@@ -58,8 +60,8 @@ public class GameBoard
         List<Transform> groupToDelete = new List<Transform>();
         List<Transform> groupToPoof = new List<Transform>();
         
-        for (int row = 0; row < 12; row++){
-            for(int col = 0; col < 6; col++ ){
+        for (int row = 0; row < height; row++){
+            for(int col = 0; col < width; col++ ){
                 List<Transform> currentGroup = new List<Transform>();
 
                 if(gameBoard[col, row] != null){
@@ -107,8 +109,8 @@ public class GameBoard
     }
 
     public static void DropAllColumns(){
-        for(int row = 0; row < 12; row++){
-            for(int col = 0; col < 6; col++){
+        for(int row = 0; row < height; row++){
+            for(int col = 0; col < width; col++){
                 if(gameBoard[col, row] != null){
                     Transform puyoUnit = gameBoard[col,row];
                     puyoUnit.gameObject.GetComponent<PuyoUnit>().DropToFloorExternal();
@@ -214,7 +216,6 @@ public class GameBoard
                         return true;
                     } else if(puyoUnit.activelyFalling)
                     {
-
                         return true;
                     }
                 }
