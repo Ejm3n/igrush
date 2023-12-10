@@ -65,7 +65,7 @@ public class SoundManager : MonoBehaviour
             {
                 if (!music_AudioSource.isPlaying)
                 {
-                    while (lastClip == currentClip)
+                    while (lastClip == currentClip && music_AudioClips.Length>1)
                     {
                         currentClip = GetRandomMusic();
                     }

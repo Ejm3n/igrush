@@ -170,7 +170,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music_AudioSource: {fileID: 824490374}
-  music_AudioClips: []
+  music_AudioClips:
+  - {fileID: 8300000, guid: 25ef8759398b1ff488b5b23389fbcc01, type: 3}
   sounds_AudioSource: {fileID: 431130483}
   sounds_razbitie: {fileID: 0}
   sounds_combo: {fileID: 0}
