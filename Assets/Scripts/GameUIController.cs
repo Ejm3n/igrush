@@ -14,6 +14,9 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bestScoreText;
     [SerializeField] private SpriteRenderer bgSprite;
     [SerializeField] private Sprite[] bgSprites;
+    [SerializeField] private float comboFadeTime;
+    [SerializeField] private GameObject soundCrossImage;
+    [SerializeField] private GameObject musicCrossImage;
 
     private bool pauseState = false;
     private int combo;
@@ -44,8 +47,9 @@ public class GameUIController : MonoBehaviour
         UpdateComboText();
     }
 
-    public void ClearCombo()
-    {       
+    public IEnumerator ClearCombo()
+    {
+        yield return new WaitForSeconds(comboFadeTime);
         combo = 0;
         UpdateComboText();
     } 
@@ -70,6 +74,16 @@ public class GameUIController : MonoBehaviour
             Time.timeScale = 0f;
         else
             Time.timeScale = 1f;
+    }
+
+    public void SetMusicCross()
+    {
+        musicCrossImage.SetActive(!musicCrossImage.activeInHierarchy);
+    }
+
+    public void SetSoundCross()
+    {
+        soundCrossImage.SetActive(!soundCrossImage.activeInHierarchy);
     }
 
     private void UpdateComboText()

@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PuyoSpawner : MonoBehaviour
 {
+    public static Action<Puyo> NewPuyo;
     [SerializeField] private float timeToSpeedUpdate = 60;
     [SerializeField] private float PuyoSpeed = 1;
     [SerializeField] private float PuyoMinSpeed = 1;
@@ -11,7 +13,7 @@ public class PuyoSpawner : MonoBehaviour
     [SerializeField] private float PuyoSpeedStep = 0.25f;
     [SerializeField] private float delaySpawn = 0.3f;
     private Puyo activePuyo;
-  
+    
     // private Canvas gameOver; 
 
     void Start()
@@ -34,6 +36,7 @@ public class PuyoSpawner : MonoBehaviour
             GameBoard.gameBoard[(int)transform.position.x + 1, (int)transform.position.y] != null;
     }
 
+
     IEnumerator DelayDelete(){
         GameBoard.DropAllColumns();
         yield return new WaitUntil(() => !GameBoard.AnyFallingBlocks());
@@ -51,9 +54,10 @@ public class PuyoSpawner : MonoBehaviour
             GameUIController.instance.SetEndCanvas(true);
             enabled = false; 
         } else {
-            GameUIController.instance.ClearCombo();
+            StartCoroutine(GameUIController.instance.ClearCombo());
             activePuyo = Instantiate((GameObject)Resources.Load("Puyo"), transform.position, Quaternion.identity).GetComponent<Puyo>();
             activePuyo.fallSpeed = PuyoSpeed;
+            NewPuyo?.Invoke(activePuyo);
         }
     }
 

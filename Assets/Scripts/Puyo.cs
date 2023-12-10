@@ -28,6 +28,7 @@ public class Puyo : MonoBehaviour
 
     private bool canBeMovedDown = true;
     [SerializeField] private float moveDownDefaultDelay = .03f;
+    [SerializeField] private float dropDownStepDelay = 0.01f;
     private float moveDownDelay;
     
 
@@ -94,6 +95,20 @@ public class Puyo : MonoBehaviour
         } else if(!ValidMove(down)) {
             DisableSelf();
         }
+    }
+
+    public IEnumerator DropDown()
+    {
+        while (ValidMove(down) )
+        {
+            if(canBeMovedDown)
+            {
+                moveDownDelay = dropDownStepDelay;
+                Move(down, transform);
+            }  
+            yield return new WaitForEndOfFrame();
+        }         
+        yield return null;
     }
 
     public void RotateLeft(){
@@ -260,14 +275,16 @@ public class Puyo : MonoBehaviour
     void DisableSelf(){
         gameObject.GetComponent<PlayerController>().enabled = false;
         DropPuyoUnits();
-        enabled = false;
+        enabled = false;      
         StartCoroutine(SpawnNextBlock());
+        
     }
 
     IEnumerator SpawnNextBlock(){
         yield return new WaitUntil(() => !ActivelyFalling());
 
         GameObject.Find("PuyoSpawner").GetComponent<PuyoSpawner>().SpawnPuyo();// эту гадость вынести в гей контролер
+        Destroy(this);
     }
 
  

@@ -56,15 +56,16 @@ public class GameBoard
     
     public static bool WhatToDelete(){
         List<Transform> groupToDelete = new List<Transform>();
-
-        for(int row = 0; row < 12; row++){
+        List<Transform> groupToPoof = new List<Transform>();
+        
+        for (int row = 0; row < 12; row++){
             for(int col = 0; col < 6; col++ ){
                 List<Transform> currentGroup = new List<Transform>();
 
                 if(gameBoard[col, row] != null){
-
-                    Transform current = gameBoard[col, row];
-                    if(groupToDelete.IndexOf(current) == -1){
+                    
+                    Transform current = gameBoard[col, row];       
+                    if (groupToDelete.IndexOf(current) == -1){
                         AddNeighbors(current, currentGroup);
                     }
                 }
@@ -74,6 +75,7 @@ public class GameBoard
                     GameUIController.instance.UpdateScore(currentGroup.Count);
                     foreach(Transform puyo in currentGroup){
                         groupToDelete.Add(puyo);
+                       // groupToPoof.AddRange( AddNeighbors(puyo));
                     }
                 }
             }
@@ -81,10 +83,27 @@ public class GameBoard
         
         if(groupToDelete.Count != 0){
             DeleteUnits(groupToDelete);
+            //PoofUnits(groupToPoof);
             return true;
         } else {
             return false;
         }
+    }
+
+    private static void PoofUnits(List<Transform> puyosToPoof)
+    {
+        foreach (Transform puyo in puyosToPoof)
+        {
+            if(puyo != null)
+            {
+                puyo.GetComponent<PuyoUnit>().EnlargeHands();
+            }
+        }
+    }
+
+    public static bool AnyPoofAnimationsLeft()
+    {
+        return false;
     }
 
     public static void DropAllColumns(){
@@ -93,6 +112,7 @@ public class GameBoard
                 if(gameBoard[col, row] != null){
                     Transform puyoUnit = gameBoard[col,row];
                     puyoUnit.gameObject.GetComponent<PuyoUnit>().DropToFloorExternal();
+                    
                 }
             }
         }
@@ -100,6 +120,7 @@ public class GameBoard
 
     static void AddNeighbors(Transform currentUnit, List<Transform> currentGroup ){
         PuyoUnit puyoUnit = currentUnit.GetComponent<PuyoUnit>();
+        DisableSides(puyoUnit);
         Vector3[] directions = { Vector3.up, Vector3.down, Vector3.right, Vector3.left };
         if(currentGroup.IndexOf(currentUnit) == -1){
             currentGroup.Add(currentUnit);
@@ -136,6 +157,48 @@ public class GameBoard
         }
     }
 
+    static List<Transform> AddNeighbors(Transform currentUnit)
+    {
+       
+        PuyoUnit puyoUnit = currentUnit.GetComponent<PuyoUnit>();
+        List<Transform> neighbors = new List<Transform>();
+        DisableSides(puyoUnit);
+        Vector3[] directions = { Vector3.up, Vector3.down, Vector3.right, Vector3.left };
+        if (currentUnit == null)
+            return neighbors;
+
+        foreach (Vector3 direction in directions)
+        {
+            int nextX = (int)(Mathf.Round(currentUnit.position.x) + Mathf.Round(direction.x));
+            int nextY = (int)(Mathf.Round(currentUnit.position.y) + Mathf.Round(direction.y));
+
+            if(IsEmpty(nextX, nextY))
+            {
+                Transform nextUnit = gameBoard[nextX, nextY];
+                neighbors.Add(nextUnit);
+
+                //добавленный бред про сайды
+                if (direction == Vector3.up)
+                {
+                    puyoUnit.SetCorner(PuyoSide.Top, true);
+                }
+                else if (direction == Vector3.right)
+                {
+                    puyoUnit.SetCorner(PuyoSide.Right, true);
+                }
+                else if (direction == Vector3.left)
+                {
+                    puyoUnit.SetCorner(PuyoSide.Left, true);
+                }
+                else if (direction == Vector3.down)
+                {
+                    puyoUnit.SetCorner(PuyoSide.Bot, true);
+                }
+            }
+        }
+        return neighbors;
+    }
+
     static void DeleteUnits(List<Transform> unitsToDelete){
         foreach(Transform unit in unitsToDelete){
             Delete(unit);
@@ -146,15 +209,17 @@ public class GameBoard
         for(int row = 11; row >= 0; row--){
             for(int col = 0; col < 6; col++ ){     
                 if(gameBoard[col, row] != null){
-                    if(gameBoard[col, row].gameObject.GetComponent<PuyoUnit>().forcedDownwards){
+                    PuyoUnit puyoUnit = gameBoard[col, row].gameObject.GetComponent<PuyoUnit>();
+                    if (puyoUnit.forcedDownwards){
                         return true;
-                    } else if(gameBoard[col, row].gameObject.GetComponent<PuyoUnit>().activelyFalling){
+                    } else if(puyoUnit.activelyFalling)
+                    {
+
                         return true;
                     }
                 }
             }
         }
-
         return false;
     }
 
@@ -178,7 +243,7 @@ public class GameBoard
         text.text = boardContents;
     }
 
-    private void DisableSides(PuyoUnit puyoUnit)
+    private static void DisableSides(PuyoUnit puyoUnit)
     {
         puyoUnit.SetCorner(PuyoSide.Top, false);
         puyoUnit.SetCorner(PuyoSide.Left, false);
