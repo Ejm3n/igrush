@@ -22,19 +22,26 @@ public class GameUIController : MonoBehaviour
     private bool pauseState = false;
     private int combo;
     private int score;
-
+    private int currentBGSprite;
 
     private void Awake()
     {
         if(instance==null)
-            instance = this;
-        bgSprite.sprite = bgSprites[Random.Range(0, bgSprites.Length)];
-       
+            instance = this;   
     }
     private void Start()
     {
         SetStartCanvas(true);
     }
+
+    public void ChangeBGSprites()
+    {
+        currentBGSprite++;
+        if(currentBGSprite>= bgSprites.Length)
+            currentBGSprite = 0;
+        bgSprite.sprite = bgSprites[currentBGSprite];
+    }
+
     public void UpdateScore(int whatToAdd)
     {
         if (whatToAdd < 4)

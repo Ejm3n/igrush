@@ -79,6 +79,7 @@ public class PuyoSpawner : MonoBehaviour
                 if (PuyoSpeed <= PuyoMinSpeed)
                     downscaling = true;
             }
+            GameUIController.instance.ChangeBGSprites();
             Debug.Log("puyo speed = " + PuyoSpeed);
             Debug.Log("downscaling? " + downscaling);
 
