@@ -85,6 +85,7 @@ public class GameBoard
         
         if(groupToDelete.Count != 0){
             DeleteUnits(groupToDelete);
+            SoundManager.Instance.PlayRazbitie();
             //PoofUnits(groupToPoof);
             return true;
         } else {

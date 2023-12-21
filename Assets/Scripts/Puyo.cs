@@ -94,6 +94,7 @@ public class Puyo : MonoBehaviour
             Move(down, transform);
         } else if(!ValidMove(down)) {
             DisableSelf();
+            SoundManager.Instance.PlayFalling();
         }
     }
 
@@ -152,6 +153,7 @@ public class Puyo : MonoBehaviour
             MoveDown();
             RotateRight();
         }
+        SoundManager.Instance.PlayPerevertysh();
     }
 
     void Move(Vector3 vector, Transform target){

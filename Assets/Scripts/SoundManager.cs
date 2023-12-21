@@ -7,10 +7,15 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
     [SerializeField] private AudioSource music_AudioSource;
     [SerializeField] private AudioClip[] music_AudioClips;
+    [SerializeField] private AudioClip music_endgameFirst;
+    [SerializeField] private AudioClip music_endgameSecond;
 
     [SerializeField] private AudioSource sounds_AudioSource;
     [SerializeField] private AudioClip sounds_razbitie;
     [SerializeField] private AudioClip sounds_combo;
+    [SerializeField] private AudioClip sounds_falling;
+    [SerializeField] private AudioClip sounds_perevertysh;
+
 
     [SerializeField] private bool music_enabled;
     [SerializeField] private bool sound_enabled;
@@ -34,7 +39,21 @@ public class SoundManager : MonoBehaviour
         music_enabled = !music_enabled;
         music_AudioSource.mute = !music_enabled;
     }
-
+    
+    public void ChangeMusicToEnd()
+    {
+        StopAllCoroutines();
+        music_AudioSource.PlayOneShot(music_endgameFirst);
+        StartCoroutine(PlayendMusic());
+    }
+    private IEnumerator PlayendMusic()
+    {        
+            yield return new WaitUntil(() => music_AudioSource.isPlaying == false);
+        music_AudioSource.loop = true;
+        music_AudioSource.clip = music_endgameSecond;
+        music_AudioSource.Play();
+        
+    }
     public bool GetSoundState()
     {
         return sound_enabled;
@@ -54,7 +73,14 @@ public class SoundManager : MonoBehaviour
     {
         sounds_AudioSource.PlayOneShot(sounds_combo);
     }
-
+    public void PlayFalling()
+    {
+        sounds_AudioSource.PlayOneShot(sounds_falling);
+    }
+    public void PlayPerevertysh()
+    {
+        sounds_AudioSource.PlayOneShot(sounds_perevertysh);
+    }
     private IEnumerator PlayRandomMusic()
     {
         if (music_AudioClips.Length > 0)
