@@ -16,5 +16,6 @@ public class GameStart : MonoBehaviour
         //GameObject.Find("PuyoSpawner").GetComponent<PuyoSpawner>().enabled = true;
         puyoSpawner.enabled = true;
         GameUIController.instance.SetStartCanvas(false);
+        SoundManager.Instance.StartGameMusic();
     }
 }

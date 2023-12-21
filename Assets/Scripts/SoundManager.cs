@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
     [SerializeField] private AudioSource music_AudioSource;
     [SerializeField] private AudioClip[] music_AudioClips;
+    [SerializeField] private AudioClip music_MainMenu;
     [SerializeField] private AudioClip music_endgameFirst;
     [SerializeField] private AudioClip music_endgameSecond;
 
@@ -25,7 +26,7 @@ public class SoundManager : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
-        StartCoroutine(PlayRandomMusic());
+        StartMainMenuMusic();
     }
 
     public void ChangeSoundState()
@@ -46,6 +47,18 @@ public class SoundManager : MonoBehaviour
         music_AudioSource.clip = (music_endgameFirst);
         music_AudioSource.Play();
         StartCoroutine(PlayendMusic());
+    }
+    public void StartGameMusic()
+    {
+        music_AudioSource.loop = false;
+        music_AudioSource.Stop();
+        StartCoroutine(PlayRandomMusic());
+    }
+    public void StartMainMenuMusic()
+    {
+        music_AudioSource.clip = (music_MainMenu);
+        music_AudioSource.Play();
+        music_AudioSource.loop = true;
     }
     private IEnumerator PlayendMusic()
     {        
@@ -91,7 +104,7 @@ public class SoundManager : MonoBehaviour
             AudioClip currentClip = GetRandomMusic();
             while (true)
             {
-                if (!music_AudioSource.isPlaying)
+                yield return new WaitUntil(() => music_AudioSource.isPlaying == false);
                 {
                     while (lastClip == currentClip && music_AudioClips.Length>1)
                     {
@@ -100,8 +113,7 @@ public class SoundManager : MonoBehaviour
                     lastClip = currentClip;
                     music_AudioSource.clip = (currentClip);
                     music_AudioSource.Play();
-                }
-                yield return new WaitForEndOfFrame();
+                }              
             }
         }
         yield break;
