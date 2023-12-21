@@ -43,12 +43,14 @@ public class SoundManager : MonoBehaviour
     public void ChangeMusicToEnd()
     {
         StopAllCoroutines();
-        music_AudioSource.PlayOneShot(music_endgameFirst);
+        music_AudioSource.clip = (music_endgameFirst);
+        music_AudioSource.Play();
         StartCoroutine(PlayendMusic());
     }
     private IEnumerator PlayendMusic()
     {        
             yield return new WaitUntil(() => music_AudioSource.isPlaying == false);
+        music_AudioSource.Stop();
         music_AudioSource.loop = true;
         music_AudioSource.clip = music_endgameSecond;
         music_AudioSource.Play();
@@ -96,7 +98,8 @@ public class SoundManager : MonoBehaviour
                         currentClip = GetRandomMusic();
                     }
                     lastClip = currentClip;
-                    music_AudioSource.PlayOneShot(currentClip);
+                    music_AudioSource.clip = (currentClip);
+                    music_AudioSource.Play();
                 }
                 yield return new WaitForEndOfFrame();
             }

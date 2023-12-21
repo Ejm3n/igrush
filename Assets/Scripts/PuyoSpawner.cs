@@ -51,6 +51,7 @@ public class PuyoSpawner : MonoBehaviour
         yield return new WaitForSeconds(delaySpawn);
         if (GameIsOver()){
             //GameObject.Find("GameOverCanvas").GetComponent<CanvasGroup>().alpha = 1;
+            SoundManager.Instance.ChangeMusicToEnd();
             GameUIController.instance.SetEndCanvas(true);
             enabled = false; 
         } else {

@@ -201,18 +201,33 @@ public class Puyo : MonoBehaviour
     }
 
     Vector3 GetCounterClockwiseRotationVector(){
-        Vector3 puyoUnitPos = RoundVector(unitArray[1].transform.position);
+        try
+        {
+            Vector3 puyoUnitPos = RoundVector(unitArray[1].transform.position);
+            if (Vector3.Distance(puyoUnitPos + left, transform.position) == 0)
+            {
+                return new Vector3(-1, +1);
+            }
+            else if (Vector3.Distance(puyoUnitPos + up, transform.position) == 0)
+            {
+                return new Vector3(+1, +1);
+            }
+            else if (Vector3.Distance(puyoUnitPos + right, transform.position) == 0)
+            {
+                return new Vector3(+1, -1);
+            }
+            else if (Vector3.Distance(puyoUnitPos + down, transform.position) == 0)
+            {
+                return new Vector3(-1, -1);
+            }
 
-        if(Vector3.Distance(puyoUnitPos + left, transform.position) == 0){
-            return new Vector3(-1, +1);
-        } else if(Vector3.Distance(puyoUnitPos + up, transform.position) == 0){
-            return new Vector3(+1, +1);
-        } else if(Vector3.Distance(puyoUnitPos + right, transform.position) == 0){
-            return new Vector3(+1, -1);
-        } else if(Vector3.Distance(puyoUnitPos + down, transform.position) == 0){
-            return new Vector3(-1, -1);
         }
-        
+        catch
+        {
+            Debug.LogError("bug here");
+        }
+
+       
         return new Vector3(0, 0);
     }
 

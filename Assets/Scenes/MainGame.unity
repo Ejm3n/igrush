@@ -178,7 +178,7 @@ MonoBehaviour:
   sounds_razbitie: {fileID: 8300000, guid: 45c2fbb7f6919ca4fbd7bd6c87c5db01, type: 3}
   sounds_combo: {fileID: 0}
   sounds_falling: {fileID: 8300000, guid: 36b5c4f2de7d6dc4aa6cd60987eb926d, type: 3}
-  sounds_perevertysh: {fileID: 8300000, guid: ee2b022c14cfad04d99e56d7841c1220, type: 3}
+  sounds_perevertysh: {fileID: 8300000, guid: 4e5cf2442cfe5fa47a8e5c3d2ab6154d, type: 3}
   music_enabled: 1
   sound_enabled: 1
 --- !u!1 &70693709
@@ -1031,7 +1031,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5079,7 +5079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 181, y: -208}
+  m_AnchoredPosition: {x: 307, y: -263}
   m_SizeDelta: {x: 217.72772, y: 239.73535}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1587793405
@@ -5372,7 +5372,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 481.86, y: -208}
+  m_AnchoredPosition: {x: 540, y: -263}
   m_SizeDelta: {x: 217.72772, y: 239.73535}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1673586543
