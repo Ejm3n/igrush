@@ -209,8 +209,8 @@ public class GameBoard
     }
 
     public static bool AnyFallingBlocks(){
-        for(int row = 11; row >= 0; row--){
-            for(int col = 0; col < 6; col++ ){     
+        for(int row = height-1; row >= 0; row--){
+            for(int col = 0; col < width; col++ ){     
                 if(gameBoard[col, row] != null){
                     PuyoUnit puyoUnit = gameBoard[col, row].gameObject.GetComponent<PuyoUnit>();
                     if (puyoUnit.forcedDownwards){
@@ -229,9 +229,9 @@ public class GameBoard
         Text text = GameObject.Find("Text").GetComponent<Text>();
         string boardContents = "";
 
-        for(int row = 11; row >= 0; row--){
+        for(int row = height - 1; row >= 0; row--){
             boardContents += $"{row} :";
-            for(int col = 0; col < 6; col++ ){                
+            for(int col = 0; col < width; col++ ){                
                 if(gameBoard[col, row] == null){
                     boardContents += "o ";
                 } else {

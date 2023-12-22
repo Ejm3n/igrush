@@ -2552,10 +2552,10 @@ RectTransform:
   - {fileID: 889168771}
   m_Father: {fileID: 1435788647}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000061035, y: 351.09}
-  m_SizeDelta: {x: 1320.232, y: 506.002}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -0.000061035, y: -1728.91}
+  m_SizeDelta: {x: 1320.232, y: 506.00195}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &900590936
 MonoBehaviour:
@@ -5012,7 +5012,7 @@ MonoBehaviour:
   PuyoMinSpeed: 0.25
   PuyoMaxSpeed: 1
   PuyoSpeedStep: 0.25
-  delaySpawn: 0.3
+  delaySpawn: 0.25
 --- !u!4 &1771075659
 Transform:
   m_ObjectHideFlags: 0

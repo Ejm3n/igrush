@@ -49,7 +49,7 @@ public class PuyoUnit : MonoBehaviour
     }
 
     public IEnumerator DropToFloor(){
-        WaitForSeconds wait = new WaitForSeconds( TimeToDropNextStep);
+        
         Vector3 currentPos = RoundVector(gameObject.transform.position);
         for(int row = (int)currentPos.y - 1; row >= 0;  row--){
             int currentX = (int)currentPos.x;
@@ -58,7 +58,7 @@ public class PuyoUnit : MonoBehaviour
                 GameBoard.Clear(currentX, row + 1);
                 GameBoard.Add(currentX, row, gameObject.transform);                    
                 gameObject.transform.position += Vector3.down;
-                yield return wait;
+                yield return new WaitForSeconds(TimeToDropNextStep);
             } else { 
                 activelyFalling = false;
                 forcedDownwards = false;
