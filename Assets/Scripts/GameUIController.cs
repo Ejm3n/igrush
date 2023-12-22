@@ -32,12 +32,15 @@ public class GameUIController : MonoBehaviour
     private void Start()
     {
         SetStartCanvas(true);
+        Time.timeScale = 1f;
     }
 
     public void ChangeBGSprites()
     {
+       
         currentBGSprite++;
-        if(currentBGSprite>= bgSprites.Length)
+        Debug.Log("теперь спрайт номер " + currentBGSprite);
+        if (currentBGSprite>= bgSprites.Length)
             currentBGSprite = 0;
         bgSprite.sprite = bgSprites[currentBGSprite];
     }

@@ -13,13 +13,22 @@ public class PuyoSpawner : MonoBehaviour
     [SerializeField] private float PuyoSpeedStep = 0.25f;
     [SerializeField] private float delaySpawn = 0.3f;
     private Puyo activePuyo;
-    
+    private bool downscaling = false;
+    private float timer;
     // private Canvas gameOver; 
 
     void Start()
     {
-        StartCoroutine(UpdatePuyoSpeed());
         SpawnPuyo();
+        timer = timeToSpeedUpdate;
+    }
+
+    private void Update()
+    {     
+        if (!GameIsOver())
+        {
+            UpdatePuyoSpeed();
+        }
     }
 
     public void SpawnPuyo(){
@@ -62,31 +71,58 @@ public class PuyoSpawner : MonoBehaviour
         }
     }
 
-    private IEnumerator UpdatePuyoSpeed()
+    private void UpdatePuyoSpeed()
     {
-        bool downscaling = false;
-        while(!GameIsOver())
+        if (timer <= 0)
         {
-            yield return new WaitForSeconds(timeToSpeedUpdate);
             if (downscaling)
             {
                 PuyoSpeed += PuyoSpeedStep;
-                if(PuyoSpeed >= PuyoMaxSpeed)
+                if (PuyoSpeed >= PuyoMaxSpeed)
                     downscaling = false;
             }
-            else if(!downscaling)
+            else if (!downscaling)
             {
                 PuyoSpeed -= PuyoSpeedStep;
                 if (PuyoSpeed <= PuyoMinSpeed)
                     downscaling = true;
             }
             GameUIController.instance.ChangeBGSprites();
-            Debug.Log("puyo speed = " + PuyoSpeed);
-            Debug.Log("downscaling? " + downscaling);
-
+            timer = timeToSpeedUpdate;
         }
-        
-
+        //yield return new WaitForSeconds(timeToSpeedUpdate);
+        else
+        {
+            timer -= Time.deltaTime;
+        }
     }
+
+    /// <summary>
+    /// старый метод почемуто в один момент переставал работать тут возникает вопрос какова хуя
+    /// </summary>
+    /// <returns></returns>
+    //private IEnumerator UpdatePuyoSpeed()
+    //{
+    //    bool downscaling = false;
+    //    while(!GameIsOver())
+    //    {
+    //        yield return new WaitForSeconds(timeToSpeedUpdate);
+    //        if (downscaling)
+    //        {
+    //            PuyoSpeed += PuyoSpeedStep;
+    //            if(PuyoSpeed >= PuyoMaxSpeed)
+    //                downscaling = false;
+    //        }
+    //        else if(!downscaling)
+    //        {
+    //            PuyoSpeed -= PuyoSpeedStep;
+    //            if (PuyoSpeed <= PuyoMinSpeed)
+    //                downscaling = true;
+    //        }
+    //        GameUIController.instance.ChangeBGSprites();
+    //        Debug.Log("puyo speed = " + PuyoSpeed);
+    //        Debug.Log("downscaling? " + downscaling);
+    //    }
+    //}
 
 }
