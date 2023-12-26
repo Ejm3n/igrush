@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -26,20 +27,37 @@ public class SoundManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
         StartMainMenuMusic();
+        LoadSoundState();
+        LoadMusicState();
     }
 
     public void ChangeSoundState()
     {
         sound_enabled = !sound_enabled;
         sounds_AudioSource.mute = !sound_enabled;
+        GameUIController.instance.SetSoundCross(sound_enabled);
+        PlayerPrefs.SetInt("SoundState",Convert.ToInt16(sound_enabled));
     }
 
     public void ChangeMusicState()
     {
         music_enabled = !music_enabled;
         music_AudioSource.mute = !music_enabled;
+        GameUIController.instance.SetMusicCross(music_enabled);
+        PlayerPrefs.SetInt("MusicState", Convert.ToInt16(music_enabled));
     }
-
+    private void LoadSoundState()
+    {
+        Debug.Log("sound state = "+PlayerPrefs.GetInt("SoundState"));
+        if (PlayerPrefs.GetInt("SoundState",1) != 1)
+            ChangeSoundState();
+    }
+    private void LoadMusicState()
+    {
+        Debug.Log("music state = "+PlayerPrefs.GetInt("MusicState"));
+        if (PlayerPrefs.GetInt("MusicState",1) != 1)
+            ChangeMusicState();
+    }
     public void ChangeMusicToEnd()
     {
         StopAllCoroutines();
@@ -120,6 +138,14 @@ public class SoundManager : MonoBehaviour
 
     private AudioClip GetRandomMusic()
     {
-        return music_AudioClips[Random.Range(0, music_AudioClips.Length)];
+        return music_AudioClips[UnityEngine.Random.Range(0, music_AudioClips.Length)];
+    }
+    private void SaveMusicState(bool what)
+    {
+
+    }
+    private void SaveSoundState(bool what)
+    {
+
     }
 }

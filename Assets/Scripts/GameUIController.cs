@@ -92,14 +92,14 @@ public class GameUIController : MonoBehaviour
             Time.timeScale = 1f;
     }
 
-    public void SetMusicCross()
+    public void SetMusicCross(bool active)
     {
-        musicCrossImage.SetActive(!musicCrossImage.activeInHierarchy);
+        musicCrossImage.SetActive(!active);
     }
 
-    public void SetSoundCross()
+    public void SetSoundCross(bool active)
     {
-        soundCrossImage.SetActive(!soundCrossImage.activeInHierarchy);
+        soundCrossImage.SetActive(! active);
     }
 
     private void UpdateComboText()

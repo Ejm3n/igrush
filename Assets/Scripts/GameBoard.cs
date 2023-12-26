@@ -36,7 +36,6 @@ public class GameBoard
                 {
                     units.Add(gameBoard[col, row].GetComponent<PuyoUnit>());
                 }
-
             }
         }
         return units;
@@ -111,7 +110,7 @@ public class GameBoard
                     foreach (Transform puyo in currentGroup)
                     {
                         groupToDelete.Add(puyo);
-                        groupToPoof.AddRange(AddNeighbors(puyo));
+                        //groupToPoof.AddRange(AddNeighbors(puyo));
                     }
                 }
             }
@@ -121,7 +120,7 @@ public class GameBoard
         {
             DeleteUnits(groupToDelete);
             SoundManager.Instance.PlayRazbitie();
-            PoofUnits(groupToPoof);
+            //PoofUnits(groupToPoof);
             return true;
         }
         else
@@ -240,7 +239,7 @@ public class GameBoard
             int nextX = (int)(Mathf.Round(currentUnit.position.x) + Mathf.Round(direction.x));
             int nextY = (int)(Mathf.Round(currentUnit.position.y) + Mathf.Round(direction.y));
 
-            if (IsEmpty(nextX, nextY))
+            if (!IsEmpty(nextX, nextY))
             {
                 Transform nextUnit = gameBoard[nextX, nextY];
                 neighbors.Add(nextUnit);
