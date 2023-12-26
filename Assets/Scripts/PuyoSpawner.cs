@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PuyoSpawner : MonoBehaviour
 {
     public static Action<Puyo> NewPuyo;
+    public static bool poofsFinished = true;
     [SerializeField] private float timeToSpeedUpdate = 60;
     [SerializeField] private float PuyoSpeed = 1;
     [SerializeField] private float PuyoMinSpeed = 1;
@@ -15,6 +15,7 @@ public class PuyoSpawner : MonoBehaviour
     private Puyo activePuyo;
     private bool downscaling = false;
     private float timer;
+   
     // private Canvas gameOver; 
 
     void Start()
@@ -24,46 +25,55 @@ public class PuyoSpawner : MonoBehaviour
     }
 
     private void Update()
-    {     
+    {
         if (!GameIsOver())
         {
             UpdatePuyoSpeed();
         }
     }
 
-    public void SpawnPuyo(){
-        if(GameBoard.WhatToDelete()){
+    public void SpawnPuyo()
+    {
+        if (GameBoard.WhatToDelete())
+        {
             StartCoroutine(DelayDelete());
         }
 
         StartCoroutine(DelaySpawn());
     }
 
-    private bool GameIsOver(){
-        return 
+    private bool GameIsOver()
+    {
+        return
             GameBoard.gameBoard[(int)transform.position.x, (int)transform.position.y] != null ||
             GameBoard.gameBoard[(int)transform.position.x + 1, (int)transform.position.y] != null;
     }
 
 
-    IEnumerator DelayDelete(){
+    IEnumerator DelayDelete()
+    {
         GameBoard.DropAllColumns();
         yield return new WaitUntil(() => !GameBoard.AnyFallingBlocks());
-        if(GameBoard.WhatToDelete()){
+        if (GameBoard.WhatToDelete())
+        {
             StartCoroutine(DelayDelete());
         };
 
     }
 
-    IEnumerator DelaySpawn(){
-        yield return new WaitUntil(() => !GameBoard.AnyFallingBlocks() && !GameBoard.WhatToDelete());
+    IEnumerator DelaySpawn()
+    {
+        yield return new WaitUntil(() => !GameBoard.AnyFallingBlocks() && !GameBoard.WhatToDelete() && poofsFinished);
         yield return new WaitForSeconds(delaySpawn);
-        if (GameIsOver()){
+        if (GameIsOver())
+        {
             //GameObject.Find("GameOverCanvas").GetComponent<CanvasGroup>().alpha = 1;
             SoundManager.Instance.ChangeMusicToEnd();
             GameUIController.instance.SetEndCanvas(true);
-            enabled = false; 
-        } else {
+            enabled = false;
+        }
+        else
+        {
             StartCoroutine(GameUIController.instance.ClearCombo());
             activePuyo = Instantiate((GameObject)Resources.Load("Puyo"), transform.position, Quaternion.identity).GetComponent<Puyo>();
             activePuyo.fallSpeed = PuyoSpeed;
@@ -96,6 +106,7 @@ public class PuyoSpawner : MonoBehaviour
             timer -= Time.deltaTime;
         }
     }
+  
 
     /// <summary>
     /// старый метод почемуто в один момент переставал работать тут возникает вопрос какова хуя
@@ -124,5 +135,32 @@ public class PuyoSpawner : MonoBehaviour
     //        Debug.Log("downscaling? " + downscaling);
     //    }
     //}
+    //private IEnumerator PoofPuyos(float spawnTansform, float target, float yPos, Sprite sprite)
+    //{
+    //    bool HalfTarget = true;
+    //    poofsFinished = false;
+    //    if (target == MathF.Round(target))
+    //        HalfTarget = false;
+    //    if (spawnTansform - target < 0)//тогда влево запускать
+    //    {
 
+    //    }
+    //    else
+    //    {
+    //        for (int i = (int)spawnTansform; i < (int)MathF.Round(target); i++)
+    //        {
+    //            HandChecker handChecker = Instantiate((GameObject)Resources.Load("HandChecker"), new Vector2(i, yPos), Quaternion.identity).GetComponent<HandChecker>();
+    //            handChecker.SetHandChecker(sprite, HandCheckerState.FullRight);
+    //            yield return new WaitForSeconds(handChecker.ReturnAnimLength());
+    //        }
+    //        if (HalfTarget)
+    //        {
+    //            HandChecker handChecker = Instantiate((GameObject)Resources.Load("HandChecker"), new Vector2(target - .5f, yPos), Quaternion.identity).GetComponent<HandChecker>();
+    //            handChecker.SetHandChecker(sprite, HandCheckerState.HalfRight);
+    //            yield return new WaitForSeconds(handChecker.ReturnAnimLength());
+    //        }
+    //    }
+    //    poofsFinished = true;
+
+    //}
 }

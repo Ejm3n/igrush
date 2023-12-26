@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -34,13 +33,13 @@ public class SoundManager : MonoBehaviour
         sound_enabled = !sound_enabled;
         sounds_AudioSource.mute = !sound_enabled;
     }
-    
+
     public void ChangeMusicState()
     {
         music_enabled = !music_enabled;
         music_AudioSource.mute = !music_enabled;
     }
-    
+
     public void ChangeMusicToEnd()
     {
         StopAllCoroutines();
@@ -61,13 +60,13 @@ public class SoundManager : MonoBehaviour
         music_AudioSource.loop = true;
     }
     private IEnumerator PlayendMusic()
-    {        
-            yield return new WaitUntil(() => music_AudioSource.isPlaying == false);
+    {
+        yield return new WaitUntil(() => music_AudioSource.isPlaying == false);
         music_AudioSource.Stop();
         music_AudioSource.loop = true;
         music_AudioSource.clip = music_endgameSecond;
         music_AudioSource.Play();
-        
+
     }
     public bool GetSoundState()
     {
@@ -106,21 +105,21 @@ public class SoundManager : MonoBehaviour
             {
                 yield return new WaitUntil(() => music_AudioSource.isPlaying == false);
                 {
-                    while (lastClip == currentClip && music_AudioClips.Length>1)
+                    while (lastClip == currentClip && music_AudioClips.Length > 1)
                     {
                         currentClip = GetRandomMusic();
                     }
                     lastClip = currentClip;
                     music_AudioSource.clip = (currentClip);
                     music_AudioSource.Play();
-                }              
+                }
             }
         }
         yield break;
     }
 
     private AudioClip GetRandomMusic()
-    {        
-           return   music_AudioClips[Random.Range(0, music_AudioClips.Length)];       
+    {
+        return music_AudioClips[Random.Range(0, music_AudioClips.Length)];
     }
 }

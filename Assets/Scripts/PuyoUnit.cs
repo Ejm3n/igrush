@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
+using System.Collections;
 using UnityEngine;
 
 [System.Serializable]
@@ -51,6 +51,7 @@ public class PuyoUnit : MonoBehaviour
     public IEnumerator DropToFloor(){
         
         Vector3 currentPos = RoundVector(gameObject.transform.position);
+
         for(int row = (int)currentPos.y - 1; row >= 0;  row--){
             int currentX = (int)currentPos.x;
             if(GameBoard.IsEmpty(currentX, row)){
@@ -103,8 +104,11 @@ public class PuyoUnit : MonoBehaviour
             {
                 spriteSide.animator.SetTrigger(blocksRange.ToString() + "Block");
             }
-        }
-          
+        }         
+    }
+    public Sprite GetRightCornerSprite()
+    {
+        return puyoCornersArray[colorIdx].puyoHorizontalSide;
     }
     public void EnlargeHands()
     {
@@ -124,4 +128,5 @@ public class PuyoUnit : MonoBehaviour
             }            
         }
     }
+   
 }

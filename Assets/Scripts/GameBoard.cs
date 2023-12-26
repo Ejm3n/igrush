@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameBoard
 {
-    public static Transform[,] gameBoard = new Transform[6,12];
-    private static int width = 6;
-    private static int height = 12;
+    public static Transform[,] gameBoard = new Transform[6,14];
+    public static int width = 6;
+    public static int height = 14;
 
     public static bool WithinBorders(Vector3 target){
         return target.x > -1 &&
@@ -77,7 +78,7 @@ public class GameBoard
                     GameUIController.instance.UpdateScore(currentGroup.Count);
                     foreach(Transform puyo in currentGroup){
                         groupToDelete.Add(puyo);
-                       // groupToPoof.AddRange( AddNeighbors(puyo));
+                        groupToPoof.AddRange( AddNeighbors(puyo));
                     }
                 }
             }
@@ -86,18 +87,18 @@ public class GameBoard
         if(groupToDelete.Count != 0){
             DeleteUnits(groupToDelete);
             SoundManager.Instance.PlayRazbitie();
-            //PoofUnits(groupToPoof);
+            PoofUnits(groupToPoof);
             return true;
         } else {
             return false;
         }
     }
 
-    private static void PoofUnits(List<Transform> puyosToPoof)
+    private static void PoofUnits(List<Transform> groupToPoof)
     {
-        foreach (Transform puyo in puyosToPoof)
+        foreach (Transform puyo in groupToPoof)
         {
-            if(puyo != null)
+            if (puyo != null)
             {
                 puyo.GetComponent<PuyoUnit>().EnlargeHands();
             }
@@ -253,3 +254,34 @@ public class GameBoard
         puyoUnit.SetCorner(PuyoSide.Bot, false);
     }
 }
+/// <summary>
+/// попытка не пытка. Хотел имбануть но помому обосрался сделаю в итоге как первая идея была.
+/// </summary>
+/// <param name="puyosToPoof"></param>
+//private static void PoofUnits(List<Transform> puyosToPoof)
+//{
+//    foreach (Transform puyo in puyosToPoof)
+//    {
+//        if (puyo != null)
+//        {
+//            Sprite cornerSprite = puyo.GetComponent<PuyoUnit>().GetRightCornerSprite();
+//            for (int i = (int)Mathf.Round(puyo.position.x) + 1; i < width - 1; i++)//right
+//            {
+//                if (!IsEmpty((int)i, (int)puyo.position.y) && ColorMatches((int)i, (int)Mathf.Round(puyo.position.y), puyo))
+//                {
+//                    Transform puyoToGrab = gameBoard[i, (int)Mathf.Round(puyo.position.y)].GetComponent<Transform>();
+//                    float middlePos = Mathf.Round(puyo.position.x) + Mathf.Round(puyoToGrab.position.x) / 2;
+//                    Debug.Log("MiddlePos = " + middlePos);
+//                    PuyoSpawner.PoofPuyos(Mathf.Round(puyo.position.x),middlePos,puyo.position.y, cornerSprite);
+//                    PuyoSpawner.PoofPuyos(Mathf.Round(puyoToGrab.position.x), middlePos, puyo.position.y, cornerSprite);
+//                    break;
+//                }
+//                else if(!IsEmpty((int)i, (int)puyo.position.y))
+//                {
+//                    PuyoSpawner.PoofPuyos(Mathf.Round(puyo.position.x), i, puyo.position.y, cornerSprite);
+//                    break;
+//                }
+//            }
+//        }
+//    }
+//}
