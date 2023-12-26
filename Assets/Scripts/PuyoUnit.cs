@@ -28,7 +28,8 @@ public class SpriteSides
 
 
 public class PuyoUnit : MonoBehaviour
-{ 
+{
+    public bool Poofing;
     public bool activelyFalling = true;
     public bool forcedDownwards = false;
     public bool handsAnim = false;
@@ -96,15 +97,26 @@ public class PuyoUnit : MonoBehaviour
         return new Vector2(Mathf.Round(vect.x), Mathf.Round(vect.y));
     }
 
-    public void EnlargeHands(int blocksRange, PuyoSide side)
+    public void EnlargeHands(float blocksRange)
     {
+        Poofing = true;
+        PuyoSide side = PuyoSide.Right;
+        if(blocksRange<0)
+            side = PuyoSide.Left;
         foreach (SpriteSides spriteSide in puyoSidesSpriteRenderers)
         {
             if(side == spriteSide.side)
             {
+                spriteSide.spriteRenderer.enabled = true;
                 spriteSide.animator.SetTrigger(blocksRange.ToString() + "Block");
+                StartCoroutine(WaitForPoofAnimation(spriteSide.animator.runtimeAnimatorController.animationClips[0].length));
             }
         }         
+    }
+    private IEnumerator WaitForPoofAnimation(float timeToWait)
+    {
+        yield return new WaitForSeconds(timeToWait);
+        Poofing = false;
     }
     public Sprite GetRightCornerSprite()
     {

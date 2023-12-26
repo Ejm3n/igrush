@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PuyoSpawner : MonoBehaviour
 {
     public static Action<Puyo> NewPuyo;
-    public static bool poofsFinished = true;
     [SerializeField] private float timeToSpeedUpdate = 60;
     [SerializeField] private float PuyoSpeed = 1;
     [SerializeField] private float PuyoMinSpeed = 1;
@@ -30,6 +30,7 @@ public class PuyoSpawner : MonoBehaviour
         {
             UpdatePuyoSpeed();
         }
+
     }
 
     public void SpawnPuyo()
@@ -63,7 +64,7 @@ public class PuyoSpawner : MonoBehaviour
 
     IEnumerator DelaySpawn()
     {
-        yield return new WaitUntil(() => !GameBoard.AnyFallingBlocks() && !GameBoard.WhatToDelete() && poofsFinished);
+        yield return new WaitUntil(() => !GameBoard.AnyFallingBlocks() && !GameBoard.WhatToDelete() && PoofsFinished());
         yield return new WaitForSeconds(delaySpawn);
         if (GameIsOver())
         {
@@ -80,7 +81,16 @@ public class PuyoSpawner : MonoBehaviour
             NewPuyo?.Invoke(activePuyo);
         }
     }
-
+    private bool PoofsFinished()
+    {
+        List< PuyoUnit> puyoUnits = GameBoard.GetPuyoUnits();
+        foreach( PuyoUnit unit in puyoUnits )
+                {
+            if(unit.Poofing)
+                return false;
+        }
+        return true;
+    }
     private void UpdatePuyoSpeed()
     {
         if (timer <= 0)
