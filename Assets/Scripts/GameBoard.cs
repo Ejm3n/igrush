@@ -121,7 +121,7 @@ public class GameBoard
         {
             DeleteUnits(groupToDelete);
             SoundManager.Instance.PlayRazbitie();
-            //PoofUnits(groupToPoof);
+            PoofUnits(groupToPoof);
             return true;
         }
         else
