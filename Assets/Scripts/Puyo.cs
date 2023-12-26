@@ -42,7 +42,7 @@ public class Puyo : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         AutoDrop();
         if (moveDownDelay > 0)
