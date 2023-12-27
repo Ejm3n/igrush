@@ -6,6 +6,7 @@ using UnityEngine;
 public class PuyoSpawner : MonoBehaviour
 {
     public static Action<Puyo> NewPuyo;
+  
     [SerializeField] private float timeToSpeedUpdate = 60;
     [SerializeField] private float PuyoSpeed = 1;
     [SerializeField] private float PuyoMinSpeed = 1;
@@ -15,7 +16,7 @@ public class PuyoSpawner : MonoBehaviour
     private Puyo activePuyo;
     private bool downscaling = false;
     private float timer;
-   
+    private static bool comboThisRound;
     // private Canvas gameOver; 
 
     void Start()
@@ -42,7 +43,11 @@ public class PuyoSpawner : MonoBehaviour
 
         StartCoroutine(DelaySpawn());
     }
-
+    public static void ComboedThisRound(bool comboed)
+    {
+        if(!comboThisRound)
+            comboThisRound = true;
+    }
     private bool GameIsOver()
     {
         return
@@ -75,6 +80,8 @@ public class PuyoSpawner : MonoBehaviour
         }
         else
         {
+            //if combolastround than keep combo
+            comboThisRound = false;
             StartCoroutine(GameUIController.instance.ClearCombo());
             activePuyo = Instantiate((GameObject)Resources.Load("Puyo"), transform.position, Quaternion.identity).GetComponent<Puyo>();
             activePuyo.fallSpeed = PuyoSpeed;

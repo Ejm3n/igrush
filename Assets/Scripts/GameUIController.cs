@@ -20,9 +20,10 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private GameObject musicCrossImage;
 
     private bool pauseState = false;
-    private int combo;
+    private int combo = -1;
     private int score;
     private int currentBGSprite;
+    private bool comboLastRound;
 
     private void Awake()
     {
@@ -33,6 +34,10 @@ public class GameUIController : MonoBehaviour
     {
         SetStartCanvas(true);
         Time.timeScale = 1f;
+    }
+    private void Update()
+    {
+        Debug.Log("Last round combo = " + comboLastRound);
     }
 
     public void ChangeBGSprites()
@@ -61,12 +66,23 @@ public class GameUIController : MonoBehaviour
         combo += whatToAdd;
         UpdateComboText();
     }
-
+    public void SetLastRoundComboed(bool comboed)
+    {
+        comboLastRound = comboed;
+    }
+    public bool GetLastRoundComboed()
+    {
+        return comboLastRound;
+    }
     public IEnumerator ClearCombo()
     {
-        yield return new WaitForSeconds(comboFadeTime);
-        combo = 0;
-        UpdateComboText();
+        if(!comboLastRound)
+        {
+            yield return new WaitForSeconds(comboFadeTime);
+            combo = -1;
+            UpdateComboText();
+        }
+        yield break;
     } 
     
     public void SetStartCanvas(bool what)
@@ -103,8 +119,10 @@ public class GameUIController : MonoBehaviour
     }
 
     private void UpdateComboText()
-    {
+    {       
         comboText.text = combo.ToString();
+        if (combo < 0)
+            comboText.text = "0";
     }
     private void UpdateScoreText()
     {

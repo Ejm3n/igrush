@@ -118,6 +118,7 @@ public class GameBoard
 
         if (groupToDelete.Count != 0)
         {
+            GameUIController.instance.SetLastRoundComboed(true);//не работает исправить быстро ебаный ты в рот надо както по другому это высрать
             DeleteUnits(groupToDelete);
             SoundManager.Instance.PlayRazbitie();
             //PoofUnits(groupToPoof);
@@ -125,6 +126,7 @@ public class GameBoard
         }
         else
         {
+            GameUIController.instance.SetLastRoundComboed(false);
             return false;
         }
     }
