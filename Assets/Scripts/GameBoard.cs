@@ -7,7 +7,7 @@ public class GameBoard
     public static Transform[,] gameBoard = new Transform[6, 14];
     public static int width = 6;
     public static int height = 14;
-
+    public static int totalColors = 7;//важно чтоб в пуё юнит было стокаже тотал и в юай контролере чтоб было тотал калорс тоже 
     public static bool WithinBorders(Vector3 target)
     {
         return target.x > -1 &&
@@ -118,7 +118,7 @@ public class GameBoard
 
         if (groupToDelete.Count != 0)
         {
-           GameUIController.instance.SetLastRoundComboed(true);//не работает исправить быстро ебаный ты в рот надо както по другому это высрать
+            PuyoSpawner.ComboedThisRound(true);//не работает исправить быстро ебаный ты в рот надо както по другому это высрать
             DeleteUnits(groupToDelete);
             SoundManager.Instance.PlayRazbitie();
             //PoofUnits(groupToPoof);
@@ -126,7 +126,6 @@ public class GameBoard
         }
         else
         {
-            GameUIController.instance.SetLastRoundComboed(false);
             return false;
         }
     }

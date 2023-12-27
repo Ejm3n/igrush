@@ -40,14 +40,20 @@ public class PuyoUnit : MonoBehaviour
     [SerializeField] private PuyoCorners[] puyoCornersArray;
     [SerializeField] private SpriteSides[] puyoSidesSpriteRenderers;
 
-
-    private Color[] colorArray = { Color.blue, Color.green, Color.red, Color.cyan };
-
     void Awake()
     {
-        colorIdx = Random.Range(0, puyoSpriteArray.Length);
-        ChangeToOtherColor(colorIdx);
+        SetColorIdx(Random.Range(0, puyoSpriteArray.Length));       
+    }
 
+    public void SetColorIdx(int index)
+    {
+        colorIdx = index;
+        ChangeToOtherColor(colorIdx);
+    }
+
+    public int GetColorIdx()
+    {
+        return colorIdx;
     }
 
     public IEnumerator DropToFloor()

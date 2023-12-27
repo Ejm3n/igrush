@@ -14,6 +14,7 @@ public class PuyoSpawner : MonoBehaviour
     [SerializeField] private float PuyoSpeedStep = 0.25f;
     [SerializeField] private float delaySpawn = 0.3f;
     private Puyo activePuyo;
+    private int[] nextPuyoColors = new int[2] { 0,0};
     private bool downscaling = false;
     private float timer;
     private static bool comboThisRound;
@@ -21,6 +22,7 @@ public class PuyoSpawner : MonoBehaviour
 
     void Start()
     {
+        SetNextPuyos();
         SpawnPuyo();
         timer = timeToSpeedUpdate;
     }
@@ -80,10 +82,15 @@ public class PuyoSpawner : MonoBehaviour
         }
         else
         {
-            //if combolastround than keep combo
+            //if combo than keep combo           
+            if (!comboThisRound)
+                StartCoroutine(GameUIController.instance.ClearCombo());
+            
+            GameUIController.instance.SetLastRoundComboed(comboThisRound);
             comboThisRound = false;
-            StartCoroutine(GameUIController.instance.ClearCombo());
             activePuyo = Instantiate((GameObject)Resources.Load("Puyo"), transform.position, Quaternion.identity).GetComponent<Puyo>();
+            activePuyo.SetPuyosColors(nextPuyoColors[0], nextPuyoColors[1]);
+            SetNextPuyos();
             activePuyo.fallSpeed = PuyoSpeed;
             NewPuyo?.Invoke(activePuyo);
         }
@@ -123,8 +130,14 @@ public class PuyoSpawner : MonoBehaviour
             timer -= Time.deltaTime;
         }
     }
-  
 
+    private void SetNextPuyos()
+    {
+        nextPuyoColors[0] = UnityEngine.Random.Range(0, GameBoard.totalColors);
+        nextPuyoColors[1] = UnityEngine.Random.Range(0, GameBoard.totalColors);
+        GameUIController.instance.UpdateNextPyuos(nextPuyoColors[0], nextPuyoColors[1]);
+
+    }
     /// <summary>
     /// старый метод почемуто в один момент переставал работать тут возникает вопрос какова хуя
     /// </summary>

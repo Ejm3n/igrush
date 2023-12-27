@@ -31,7 +31,7 @@ public class Puyo : MonoBehaviour
     private float moveDownDelay;
 
 
-    void Start()
+    void Awake()
     {
         unitArray[0] = Instantiate((GameObject)Resources.Load("PuyoUnit"), transform.position, Quaternion.identity);
         unitArray[1] = Instantiate((GameObject)Resources.Load("PuyoUnit"), new Vector2(transform.position.x + 1, transform.position.y), Quaternion.identity);
@@ -41,7 +41,11 @@ public class Puyo : MonoBehaviour
         moveDownDelay = moveDownDefaultDelay;
 
     }
-
+    public void SetPuyosColors(int color1,int color2)
+    {
+        unitArray[0].GetComponent<PuyoUnit>().SetColorIdx( color1);
+        unitArray[1].GetComponent<PuyoUnit>().SetColorIdx( color2);
+    }
     void FixedUpdate()
     {
         AutoDrop();

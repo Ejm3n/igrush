@@ -1,7 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class GameUIController : MonoBehaviour
 {
@@ -18,6 +17,8 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private float comboFadeTime;
     [SerializeField] private GameObject soundCrossImage;
     [SerializeField] private GameObject musicCrossImage;
+    [SerializeField] private SpriteRenderer[] nextPuyos;
+    [SerializeField] private Color[] nextPyosColors;
 
     private bool pauseState = false;
     private int combo = -1;
@@ -27,25 +28,26 @@ public class GameUIController : MonoBehaviour
 
     private void Awake()
     {
-        if(instance==null)
-            instance = this;   
+        if (instance == null)
+            instance = this;
     }
     private void Start()
     {
         SetStartCanvas(true);
         Time.timeScale = 1f;
     }
-    private void Update()
-    {
-        Debug.Log("Last round combo = " + comboLastRound);
-    }
 
+    public void UpdateNextPyuos(int puyo1,int puyo2)
+    {
+        nextPuyos[0].color = nextPyosColors[puyo1];
+        nextPuyos[1].color = nextPyosColors[puyo2];
+    }
     public void ChangeBGSprites()
     {
-       
+
         currentBGSprite++;
         Debug.Log("теперь спрайт номер " + currentBGSprite);
-        if (currentBGSprite>= bgSprites.Length)
+        if (currentBGSprite >= bgSprites.Length)
             currentBGSprite = 0;
         bgSprite.sprite = bgSprites[currentBGSprite];
     }
@@ -56,8 +58,11 @@ public class GameUIController : MonoBehaviour
             Debug.LogError("whatToAdd<4 CRITICAL ERROR");
         int scoreToAdd = 10 + ((whatToAdd - 4) * 5);
         //Debug.Log("комбо = " + combo + "\n score = " + score + "\n whatTOADD = " + whatToAdd);
-        score += scoreToAdd * combo;
-       // Debug.Log("счет после " + score);
+        if (combo > 0)
+            score += scoreToAdd * combo;
+        else
+            score += scoreToAdd;
+        // Debug.Log("счет после " + score);
         UpdateScoreText();
     }
 
@@ -76,15 +81,13 @@ public class GameUIController : MonoBehaviour
     }
     public IEnumerator ClearCombo()
     {
-        if(!comboLastRound)
-        {
-            yield return new WaitForSeconds(comboFadeTime);
-            combo = -1;
-            UpdateComboText();
-        }
+
+        yield return new WaitForSeconds(comboFadeTime);
+        combo = -1;
+        UpdateComboText();
         yield break;
-    } 
-    
+    }
+
     public void SetStartCanvas(bool what)
     {
         startCanvas.SetActive(what);
@@ -102,7 +105,7 @@ public class GameUIController : MonoBehaviour
     {
         pauseState = !pauseState;
         pauseCanvas.SetActive(pauseState);
-        if(pauseState)
+        if (pauseState)
             Time.timeScale = 0f;
         else
             Time.timeScale = 1f;
@@ -115,18 +118,18 @@ public class GameUIController : MonoBehaviour
 
     public void SetSoundCross(bool active)
     {
-        soundCrossImage.SetActive(! active);
+        soundCrossImage.SetActive(!active);
     }
 
     private void UpdateComboText()
-    {       
+    {
         comboText.text = combo.ToString();
         if (combo < 0)
             comboText.text = "0";
     }
     private void UpdateScoreText()
     {
-        scoreText.text = score.ToString();  
+        scoreText.text = score.ToString();
     }
-    
+
 }
