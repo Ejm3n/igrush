@@ -418,6 +418,7 @@ RectTransform:
   - {fileID: 508668518}
   - {fileID: 1221419143}
   - {fileID: 1539539990}
+  - {fileID: 543728264}
   - {fileID: 1587793404}
   - {fileID: 1673586542}
   m_Father: {fileID: 0}
@@ -1659,7 +1660,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &543728264
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1678,7 +1679,7 @@ RectTransform:
   - {fileID: 591879093}
   - {fileID: 634962116}
   - {fileID: 1795832940}
-  m_Father: {fileID: 1526310766}
+  m_Father: {fileID: 151203944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3994,7 +3995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startCanvas: {fileID: 863545529}
-  endCanvas: {fileID: 1526310762}
+  endCanvas: {fileID: 543728263}
   pauseCanvas: {fileID: 793295582}
   comboText: {fileID: 1295693229}
   scoreText: {fileID: 243605792}
@@ -4512,7 +4513,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1526310763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4587,8 +4588,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 543728264}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
