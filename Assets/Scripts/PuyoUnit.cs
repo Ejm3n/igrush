@@ -39,16 +39,19 @@ public class PuyoUnit : MonoBehaviour
     [SerializeField] private Sprite[] puyoSpriteArray;
     [SerializeField] private PuyoCorners[] puyoCornersArray;
     [SerializeField] private SpriteSides[] puyoSidesSpriteRenderers;
+    private Animator animator;
 
     void Awake()
     {
-        SetColorIdx(Random.Range(0, puyoSpriteArray.Length));       
+        animator = GetComponent<Animator>();
+       // SetColorIdx(Random.Range(0, puyoSpriteArray.Length));  
     }
 
     public void SetColorIdx(int index)
     {
         colorIdx = index;
         ChangeToOtherColor(colorIdx);
+        animator.SetTrigger(colorIdx.ToString());
     }
 
     public int GetColorIdx()
@@ -97,6 +100,7 @@ public class PuyoUnit : MonoBehaviour
             if (spriteSide.side == PuyoSide.Left || spriteSide.side == PuyoSide.Right)
             {
                 spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoHorizontalSide;
+
             }
             else if (spriteSide.side == PuyoSide.Top || spriteSide.side == PuyoSide.Bot)
             {
@@ -104,7 +108,7 @@ public class PuyoUnit : MonoBehaviour
 
             }
         }
-
+        animator.SetTrigger(colorIdx.ToString());
     }
     public Vector3 RoundVector(Vector3 vect)
     {
