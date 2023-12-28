@@ -63,7 +63,7 @@ public class SoundManager : MonoBehaviour
         StopAllCoroutines();
         music_AudioSource.clip = (music_endgameFirst);
         music_AudioSource.Play();
-        StartCoroutine(PlayendMusic());
+       // StartCoroutine(PlayendMusic());
     }
     public void StartGameMusic()
     {

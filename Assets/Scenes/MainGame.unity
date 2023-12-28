@@ -173,13 +173,13 @@ MonoBehaviour:
   music_AudioClips:
   - {fileID: 8300000, guid: 25ef8759398b1ff488b5b23389fbcc01, type: 3}
   music_MainMenu: {fileID: 8300000, guid: 3fc0574c6332328478d1dd8efe6a385c, type: 3}
-  music_endgameFirst: {fileID: 8300000, guid: 5068d6776c5011340914a07380ef7b2d, type: 3}
+  music_endgameFirst: {fileID: 8300000, guid: d7385dfefd162c04db5a76289cb7d7bf, type: 3}
   music_endgameSecond: {fileID: 8300000, guid: 3fc0574c6332328478d1dd8efe6a385c, type: 3}
   sounds_AudioSource: {fileID: 431130483}
   sounds_razbitie: {fileID: 8300000, guid: 45c2fbb7f6919ca4fbd7bd6c87c5db01, type: 3}
   sounds_combo: {fileID: 0}
   sounds_falling: {fileID: 8300000, guid: 36b5c4f2de7d6dc4aa6cd60987eb926d, type: 3}
-  sounds_perevertysh: {fileID: 8300000, guid: 4e5cf2442cfe5fa47a8e5c3d2ab6154d, type: 3}
+  sounds_perevertysh: {fileID: 8300000, guid: 96f33ab22402fc84fa194fefd23aaf31, type: 3}
   music_enabled: 1
   sound_enabled: 1
 --- !u!1 &70693709

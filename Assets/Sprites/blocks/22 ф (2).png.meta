@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6687f23453c8a8344b13beec5762b99e
+guid: ab18b2d41d4adef43ab41435ccbee625
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "33 \u0444_0"
+      name: "22 \u0444 (2)_0"
       rect:
         serializedVersion: 2
         x: 2
@@ -150,14 +150,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e17ffca6c1588c9419eec3243af64678
-      internalID: 2140374084
+      spriteID: f3be585ce2226b64eae1e75fd49af268
+      internalID: 1306737958
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "33 \u0444_1"
+      name: "22 \u0444 (2)_1"
       rect:
         serializedVersion: 2
         x: 28
@@ -171,14 +171,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aeb551bccd4fc6449a554ce8718d7216
-      internalID: 1028030932
+      spriteID: f66184f0102efaa4a89b5a3ba3b71e55
+      internalID: 1289875530
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "33 \u0444_2"
+      name: "22 \u0444 (2)_2"
       rect:
         serializedVersion: 2
         x: 54
@@ -192,14 +192,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f443392ba231bc438f044454da697dd
-      internalID: 1925153150
+      spriteID: 662e67a3d206ba0499b97f081c7a3adb
+      internalID: 477568231
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "33 \u0444_3"
+      name: "22 \u0444 (2)_3"
       rect:
         serializedVersion: 2
         x: 2
@@ -213,14 +213,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b15e0a75f29487147a368c3c90a4bcd5
-      internalID: -508606430
+      spriteID: 4e3ff326514a82a4087d116344ee0b22
+      internalID: 509906925
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "33 \u0444_4"
+      name: "22 \u0444 (2)_4"
       rect:
         serializedVersion: 2
         x: 28
@@ -234,14 +234,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 035a5b6353ec0244da8b6c52b971d22e
-      internalID: 2117253415
+      spriteID: 6b6bff911c90cbb4db435f5ff0270ce7
+      internalID: 691591545
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "33 \u0444_5"
+      name: "22 \u0444 (2)_5"
       rect:
         serializedVersion: 2
         x: 54
@@ -255,14 +255,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f7d41ddefbe233045a9694da221ca747
-      internalID: 1104342407
+      spriteID: f9c3acc401747d746b156a23b9810354
+      internalID: 1211384134
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "33 \u0444_6"
+      name: "22 \u0444 (2)_6"
       rect:
         serializedVersion: 2
         x: 2
@@ -276,14 +276,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b51972f5081a4244ebc965af2ed6985e
-      internalID: -1396562133
+      spriteID: edefc1f0766b2f04bae5de75944d1d44
+      internalID: 213976199
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "33 \u0444_7"
+      name: "22 \u0444 (2)_7"
       rect:
         serializedVersion: 2
         x: 28
@@ -297,14 +297,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6f6387a45f75bb48b1f89ce9299dc25
-      internalID: -122339548
+      spriteID: 52afe277128eaf0409b73ab863cd8a70
+      internalID: -419716186
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "33 \u0444_8"
+      name: "22 \u0444 (2)_8"
       rect:
         serializedVersion: 2
         x: 54
@@ -318,14 +318,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec61ee33ff04e6743b92247d50ff148f
-      internalID: 1035286539
+      spriteID: 2fa56b96227c07344a22ea6a104cd38d
+      internalID: 1577933565
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "33 \u0444_9"
+      name: "22 \u0444 (2)_9"
       rect:
         serializedVersion: 2
         x: 28
@@ -339,8 +339,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f38a5554fe0ce445bc03640ea388173
-      internalID: -1188377383
+      spriteID: 709e78f4273bd764b806093c099b0c81
+      internalID: 1816942230
       vertices: []
       indices: 
       edges: []
@@ -356,16 +356,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      "33 \u0444_0": 2140374084
-      "33 \u0444_1": 1028030932
-      "33 \u0444_2": 1925153150
-      "33 \u0444_3": -508606430
-      "33 \u0444_4": 2117253415
-      "33 \u0444_5": 1104342407
-      "33 \u0444_6": -1396562133
-      "33 \u0444_7": -122339548
-      "33 \u0444_8": 1035286539
-      "33 \u0444_9": -1188377383
+      "22 \u0444 (2)_0": 1306737958
+      "22 \u0444 (2)_1": 1289875530
+      "22 \u0444 (2)_2": 477568231
+      "22 \u0444 (2)_3": 509906925
+      "22 \u0444 (2)_4": 691591545
+      "22 \u0444 (2)_5": 1211384134
+      "22 \u0444 (2)_6": 213976199
+      "22 \u0444 (2)_7": -419716186
+      "22 \u0444 (2)_8": 1577933565
+      "22 \u0444 (2)_9": 1816942230
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
