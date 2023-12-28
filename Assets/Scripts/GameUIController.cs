@@ -10,6 +10,7 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private GameObject pauseCanvas;
     [SerializeField] private TextMeshProUGUI comboText;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI endScoreText;
     [SerializeField] private TextMeshProUGUI bestScoreText;
     [SerializeField] private TextMeshProUGUI bestScoreStartText;
     [SerializeField] private SpriteRenderer bgSprite;
@@ -97,6 +98,7 @@ public class GameUIController : MonoBehaviour
     public void SetEndCanvas(bool what)
     {
         endCanvas.SetActive(what);
+        endScoreText.text = score.ToString();
         StatSaver.instance.SaveBestScore(score);
         bestScoreText.text = StatSaver.instance.GetBestScore().ToString();
     }
