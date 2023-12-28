@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 019364d3ee814c84d8e72b43d66d028e, type: 3}
+  m_Sprite: {fileID: -694929919, guid: 76b017b929664b44e866030052800e93, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,20 +117,20 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8c68d25448a03834692039258d3fba9f, type: 3}
   - {fileID: 21300000, guid: f40445534c70a5c4b94eb6194cd286f2, type: 3}
   puyoCornersArray:
-  - puyoHorizontalSide: {fileID: -1229078047, guid: 9ddd9bbcb65e3b6429f9ba7b65f23f75, type: 3}
-    puyoVerticalSide: {fileID: -577514652, guid: edc4102e6efe61d42bd2ddc555fa5a8e, type: 3}
-  - puyoHorizontalSide: {fileID: -720892583, guid: eda4d0fcc977e45478ec9a497c02deab, type: 3}
-    puyoVerticalSide: {fileID: -1087891619, guid: 9e1189a1728252846b76c6487029873e, type: 3}
-  - puyoHorizontalSide: {fileID: -1276235646, guid: 03477f8440b822b4cb1c4b2b712e8d8b, type: 3}
-    puyoVerticalSide: {fileID: 342755124, guid: abc6b800e1a9c494a99efd9c6db3d940, type: 3}
-  - puyoHorizontalSide: {fileID: 1174896492, guid: b0b8c240a4f52214faa16bcdd5ae3f18, type: 3}
-    puyoVerticalSide: {fileID: -1355281027, guid: c9c87c0d7983ffc47b84fbc4db4f352f, type: 3}
-  - puyoHorizontalSide: {fileID: 663071044, guid: 5dc89eef33968444a9f3806298d15d55, type: 3}
-    puyoVerticalSide: {fileID: -1531456639, guid: 011190e935815914f856c65a2130998e, type: 3}
-  - puyoHorizontalSide: {fileID: -746679319, guid: e7d26cdbb4b819c49af2436b77fd4a7d, type: 3}
-    puyoVerticalSide: {fileID: 1523000341, guid: 7052dbb63a0d88e4d97bb5c74fa8dea5, type: 3}
-  - puyoHorizontalSide: {fileID: -1258787493, guid: cdc9153e0c0fea4439d3198872ac13c7, type: 3}
-    puyoVerticalSide: {fileID: -1793615179, guid: b2d76c93d79ec4e47a98f17170753822, type: 3}
+  - puyoHorizontalSide: {fileID: 1110233051, guid: cb649f4f180439a4d8f33dff32187730, type: 3}
+    puyoVerticalSide: {fileID: 1984727137, guid: cb649f4f180439a4d8f33dff32187730, type: 3}
+  - puyoHorizontalSide: {fileID: -1538995490, guid: ed1b8be90b0236041a3b7c08c374244d, type: 3}
+    puyoVerticalSide: {fileID: 1373283766, guid: ed1b8be90b0236041a3b7c08c374244d, type: 3}
+  - puyoHorizontalSide: {fileID: 1403566009, guid: 364b28b3077014e459a95d52282416cd, type: 3}
+    puyoVerticalSide: {fileID: 948196283, guid: 364b28b3077014e459a95d52282416cd, type: 3}
+  - puyoHorizontalSide: {fileID: -254944525, guid: ef3857435df72de4e8d264fd2605e7cb, type: 3}
+    puyoVerticalSide: {fileID: 1500309542, guid: ef3857435df72de4e8d264fd2605e7cb, type: 3}
+  - puyoHorizontalSide: {fileID: 841471801, guid: 48ee3832f3c56684bbf5cfc0ab45ca76, type: 3}
+    puyoVerticalSide: {fileID: -1983168435, guid: 48ee3832f3c56684bbf5cfc0ab45ca76, type: 3}
+  - puyoHorizontalSide: {fileID: -2144534450, guid: fbe65d5a7fa464246820db1730a53a90, type: 3}
+    puyoVerticalSide: {fileID: 1035380828, guid: fbe65d5a7fa464246820db1730a53a90, type: 3}
+  - puyoHorizontalSide: {fileID: 1224043053, guid: 9e79c5da76397a947ad0d01d0e8bdb34, type: 3}
+    puyoVerticalSide: {fileID: 1568234334, guid: 9e79c5da76397a947ad0d01d0e8bdb34, type: 3}
   puyoSidesSpriteRenderers:
   - side: 0
     spriteRenderer: {fileID: 4294076492362662616}
@@ -192,8 +192,8 @@ Transform:
   m_GameObject: {fileID: 4179335100733145777}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.55, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.506, y: 0, z: 0}
+  m_LocalScale: {x: 1.0362685, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7593005872614827127}
@@ -239,7 +239,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 663071044, guid: 5dc89eef33968444a9f3806298d15d55, type: 3}
+  m_Sprite: {fileID: 1110233051, guid: cb649f4f180439a4d8f33dff32187730, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -353,7 +353,7 @@ SpriteRenderer:
   m_Size: {x: 0.45454547, y: 0.13636364}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &4246215561996029940
@@ -459,7 +459,7 @@ SpriteRenderer:
   m_Size: {x: 0.13636364, y: 0.45454547}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &4338851780886449733
@@ -500,7 +500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4471273769375733206
 Transform:
   m_ObjectHideFlags: 0
@@ -510,8 +510,8 @@ Transform:
   m_GameObject: {fileID: 9150811934761897527}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.55, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.5133, z: 0}
+  m_LocalScale: {x: 1, y: 1.0173973, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7593005872614827127}
@@ -557,7 +557,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -1531456639, guid: 011190e935815914f856c65a2130998e, type: 3}
+  m_Sprite: {fileID: 1984727137, guid: cb649f4f180439a4d8f33dff32187730, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

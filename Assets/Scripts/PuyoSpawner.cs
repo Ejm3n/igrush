@@ -109,18 +109,9 @@ public class PuyoSpawner : MonoBehaviour
     {
         if (timer <= 0)
         {
-            if (downscaling)
-            {
-                PuyoSpeed += PuyoSpeedStep;
-                if (PuyoSpeed >= PuyoMaxSpeed)
-                    downscaling = false;
-            }
-            else if (!downscaling)
-            {
                 PuyoSpeed -= PuyoSpeedStep;
                 if (PuyoSpeed <= PuyoMinSpeed)
-                    downscaling = true;
-            }
+                    PuyoSpeed = PuyoMaxSpeed;          
             GameUIController.instance.ChangeBGSprites();
             timer = timeToSpeedUpdate;
         }

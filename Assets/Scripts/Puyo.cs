@@ -149,7 +149,7 @@ public class Puyo : MonoBehaviour
         {
             Move(vect, unitArray[1].transform);
         }
-        else if (unitArray[1].transform.position.y < 11) // этот ужас переделать потом какнибудь 
+        else if (unitArray[1].transform.position.y < GameBoard.height-1) // этот ужас переделать потом какнибудь 
         {
             if (GetTetrominoState() == PuyoState.Up && (MoveLeft()))
             {

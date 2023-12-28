@@ -16,16 +16,19 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private SpriteRenderer bgSprite;
     [SerializeField] private Sprite[] bgSprites;
     [SerializeField] private float comboFadeTime;
-    [SerializeField] private GameObject soundCrossImage;
-    [SerializeField] private GameObject musicCrossImage;
     [SerializeField] private SpriteRenderer[] nextPuyos;
     [SerializeField] private Color[] nextPyosColors;
-
+    [SerializeField] private TextMeshProUGUI soundText;
+    [SerializeField] private TextMeshProUGUI musicText;
     private bool pauseState = false;
     private int combo = -1;
     private int score;
     private int currentBGSprite;
     private bool comboLastRound;
+    private string music = "MUSIC: ";
+    private string sound = "SOUND: ";
+    private string on = "ON";
+    private string off = "OFF";
 
     private void Awake()
     {
@@ -98,7 +101,7 @@ public class GameUIController : MonoBehaviour
     public void SetEndCanvas(bool what)
     {
         endCanvas.SetActive(what);
-        endScoreText.text = score.ToString();
+        endScoreText.text = score.ToString()    ;
         StatSaver.instance.SaveBestScore(score);
         bestScoreText.text = StatSaver.instance.GetBestScore().ToString();
     }
@@ -115,12 +118,19 @@ public class GameUIController : MonoBehaviour
 
     public void SetMusicCross(bool active)
     {
-        musicCrossImage.SetActive(!active);
+        if (active)
+            musicText.text = music + on;
+        else
+            musicText.text = music+off;
+
     }
 
     public void SetSoundCross(bool active)
     {
-        soundCrossImage.SetActive(!active);
+        if (active)
+            soundText.text = sound + on;
+        else
+            soundText.text = sound + off;
     }
 
     private void UpdateComboText()
