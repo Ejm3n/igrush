@@ -149,12 +149,11 @@ public class Puyo : MonoBehaviour
         {
             Move(vect, unitArray[1].transform);
         }
-        else if (unitArray[1].transform.position.y < GameBoard.height-1) // этот ужас переделать потом какнибудь 
+        else if (Mathf.Round(unitArray[1].transform.position.y) < GameBoard.height-1) // этот ужас переделать потом какнибудь 
         {
             if (GetTetrominoState() == PuyoState.Up && (MoveLeft()))
             {
                 RotateRight();
-
             }
             else if (MoveRight())
             {
@@ -167,7 +166,7 @@ public class Puyo : MonoBehaviour
                 SwapUnits();
             }
         }
-        else
+        else if(canBeMovedDown)
         {
             MoveDown();
             RotateRight();
@@ -334,7 +333,7 @@ public class Puyo : MonoBehaviour
     {
         gameObject.GetComponent<PlayerController>().enabled = false;
         DropPuyoUnits();
-        enabled = false;
+        //enabled = false;
         StartCoroutine(SpawnNextBlock());
 
     }
@@ -343,7 +342,8 @@ public class Puyo : MonoBehaviour
     {
         yield return new WaitUntil(() => !ActivelyFalling());
 
-        GameObject.Find("PuyoSpawner").GetComponent<PuyoSpawner>().SpawnPuyo();// эту гадость вынести в гей контролер
+        FindObjectOfType<PuyoSpawner>().SpawnPuyo();
+        //GameObject.Find("PuyoSpawner").GetComponent<PuyoSpawner>().SpawnPuyo();// эту гадость вынести в гей контролер
         Destroy(this);
     }
 }

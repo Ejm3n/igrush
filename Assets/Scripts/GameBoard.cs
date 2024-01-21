@@ -40,7 +40,21 @@ public class GameBoard
         }
         return units;
     }
-
+    public static List<PuyoUnit> GetPuyoUnitsWithoutFlyingOne()
+    {
+        List<PuyoUnit> units = new List<PuyoUnit>();
+        for (int row = 0; row < height; row++)
+        {
+            for (int col = 0; col < width; col++)
+            {
+                if (gameBoard[col, row] != null && !gameBoard[col, row].GetComponentInParent<Puyo>())
+                {
+                    units.Add(gameBoard[col, row].GetComponent<PuyoUnit>());
+                }
+            }
+        }
+        return units;
+    }
     public static bool IsEmpty(int col, int row)
     {
         if (WithinBorders(new Vector3(col, row, 0)))
@@ -64,7 +78,17 @@ public class GameBoard
         Vector2 newPos = new Vector2(pos.x + direction.x, pos.y + direction.y);
         return !IsEmpty((int)newPos.x, (int)newPos.y) && ColorMatches((int)newPos.x, (int)newPos.y, puyoUnitTransform);
     }
+    public static void ClearBoard()
+    {
 
+        for (int row = 0; row < height; row++)
+        {
+            for (int col = 0; col < width; col++)
+            {
+                Clear(col, row);
+            }
+        }
+    }
     public static void Clear(float col, float row)
     {
         gameBoard[(int)col, (int)row] = null;
@@ -118,7 +142,7 @@ public class GameBoard
 
         if (groupToDelete.Count != 0)
         {
-            PuyoSpawner.ComboedThisRound(true);//не работает исправить быстро ебаный ты в рот надо както по другому это высрать
+            PuyoSpawner.ComboedThisRound(true);
             DeleteUnits(groupToDelete);
             SoundManager.Instance.PlayRazbitie();
             //PoofUnits(groupToPoof);
@@ -296,32 +320,6 @@ public class GameBoard
             }
         }
         return false;
-    }
-
-    public static void DebugBoard()
-    {
-        Text text = GameObject.Find("Text").GetComponent<Text>();
-        string boardContents = "";
-
-        for (int row = height - 1; row >= 0; row--)
-        {
-            boardContents += $"{row} :";
-            for (int col = 0; col < width; col++)
-            {
-                if (gameBoard[col, row] == null)
-                {
-                    boardContents += "o ";
-                }
-                else
-                {
-                    int idx = gameBoard[col, row].gameObject.GetComponent<PuyoUnit>().colorIdx;
-                    string[] colorArray = { "B", "G", "R", "C" };
-                    boardContents += $"{colorArray[idx]} ";
-                }
-            }
-            boardContents += "\n";
-        }
-        text.text = boardContents;
     }
 
     private static void DisableSides(PuyoUnit puyoUnit)

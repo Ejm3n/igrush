@@ -50,7 +50,7 @@ public class GameUIController : MonoBehaviour
     {
 
         currentBGSprite++;
-        Debug.Log("теперь спрайт номер " + currentBGSprite);
+        //Debug.Log("теперь спрайт номер " + currentBGSprite);
         if (currentBGSprite >= bgSprites.Length)
             currentBGSprite = 0;
         bgSprite.sprite = bgSprites[currentBGSprite];
@@ -64,8 +64,6 @@ public class GameUIController : MonoBehaviour
         //Debug.Log("комбо = " + combo + "\n score = " + score + "\n whatTOADD = " + whatToAdd);
         if (combo > 0)
             score += scoreToAdd * combo;
-        else
-            score += scoreToAdd;
         // Debug.Log("счет после " + score);
         UpdateScoreText();
     }
@@ -87,7 +85,7 @@ public class GameUIController : MonoBehaviour
     {
 
         yield return new WaitForSeconds(comboFadeTime);
-        combo = -1;
+        combo = 0;
         UpdateComboText();
         yield break;
     }
@@ -132,7 +130,15 @@ public class GameUIController : MonoBehaviour
         else
             soundText.text = sound + off;
     }
-
+    public int GetScore()
+    {
+        return score;
+    }
+    public void SetCurrentScore(int score)
+    {
+        this.score = score;
+        UpdateScoreText();
+    }
     private void UpdateComboText()
     {
         comboText.text = combo.ToString();

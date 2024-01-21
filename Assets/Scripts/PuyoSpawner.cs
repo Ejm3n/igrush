@@ -6,7 +6,8 @@ using UnityEngine;
 public class PuyoSpawner : MonoBehaviour
 {
     public static Action<Puyo> NewPuyo;
-  
+
+    public int Difficulty =0;
     [SerializeField] private float timeToSpeedUpdate = 60;
     [SerializeField] private float PuyoSpeed = 1;
     [SerializeField] private float PuyoMinSpeed = 1;
@@ -20,7 +21,7 @@ public class PuyoSpawner : MonoBehaviour
     private static bool comboThisRound;
     // private Canvas gameOver; 
 
-    void Start()
+    void OnEnable()
     {
         SetNextPuyos();
         SpawnPuyo();
@@ -29,10 +30,9 @@ public class PuyoSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (!GameIsOver())
-        {
+
             UpdatePuyoSpeed();
-        }
+        
 
     }
 
@@ -42,7 +42,7 @@ public class PuyoSpawner : MonoBehaviour
         {
             StartCoroutine(DelayDelete());
         }
-
+        
         StartCoroutine(DelaySpawn());
     }
     public static void ComboedThisRound(bool comboed)
@@ -75,10 +75,14 @@ public class PuyoSpawner : MonoBehaviour
         yield return new WaitForSecondsRealtime(delaySpawn);
         if (GameIsOver())
         {
+            Debug.Log("Game is over delay spawn");
             //GameObject.Find("GameOverCanvas").GetComponent<CanvasGroup>().alpha = 1;
+           
             SoundManager.Instance.ChangeMusicToEnd();
             GameUIController.instance.SetEndCanvas(true);
+            GameBoard.ClearBoard();
             enabled = false;
+            
         }
         else
         {
@@ -109,19 +113,29 @@ public class PuyoSpawner : MonoBehaviour
     {
         if (timer <= 0)
         {
-                PuyoSpeed -= PuyoSpeedStep;
-                if (PuyoSpeed <= PuyoMinSpeed)
-                    PuyoSpeed = PuyoMaxSpeed;          
-            GameUIController.instance.ChangeBGSprites();
+            NextPuyoSpeed();
             timer = timeToSpeedUpdate;
         }
-        //yield return new WaitForSeconds(timeToSpeedUpdate);
         else
         {
             timer -= Time.deltaTime;
         }
     }
+    public void NextPuyoSpeed()
+    {
+            Difficulty++;
+            PuyoSpeed -= PuyoSpeedStep;
+            if (PuyoSpeed <= PuyoMinSpeed)
+            {
+                PuyoSpeed = PuyoMaxSpeed;
+                Difficulty = 0;
+            }
 
+            GameUIController.instance.ChangeBGSprites();
+           
+        
+        //yield return new WaitForSeconds(timeToSpeedUpdate);
+    }
     private void SetNextPuyos()
     {
         nextPuyoColors[0] = UnityEngine.Random.Range(0, GameBoard.totalColors);

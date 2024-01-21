@@ -35,7 +35,7 @@ public class PuyoUnit : MonoBehaviour
     public bool handsAnim = false;
     public int colorIdx;
 
-    [SerializeField] private float TimeToDropNextStep = .1f;
+    [SerializeField] private float TimeToDropNextStep = .05f;
     [SerializeField] private Sprite[] puyoSpriteArray;
     [SerializeField] private PuyoCorners[] puyoCornersArray;
     [SerializeField] private SpriteSides[] puyoSidesSpriteRenderers;
@@ -73,7 +73,7 @@ public class PuyoUnit : MonoBehaviour
                 GameBoard.Clear(currentX, row + 1);
                 GameBoard.Add(currentX, row, gameObject.transform);
                 gameObject.transform.position += Vector3.down;
-                yield return new WaitForSeconds(TimeToDropNextStep);
+                yield return new WaitForSecondsRealtime(TimeToDropNextStep);
             }
             else
             {

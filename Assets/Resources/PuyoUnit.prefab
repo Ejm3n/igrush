@@ -107,7 +107,7 @@ MonoBehaviour:
   forcedDownwards: 0
   handsAnim: 0
   colorIdx: 0
-  TimeToDropNextStep: 0.1
+  TimeToDropNextStep: 0.05
   puyoSpriteArray:
   - {fileID: 21300000, guid: 930fd7eac84688449bf471112ffec51f, type: 3}
   - {fileID: 21300000, guid: 2b70f644ade46814a8a45a2ebb3f64dd, type: 3}
