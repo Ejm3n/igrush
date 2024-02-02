@@ -17,7 +17,7 @@ public class Puyo : MonoBehaviour
 
     public float fallSpeed = 1;
     public float interval = 0;
-
+    public bool CanBeMoved =  true;
     private Vector3 left = Vector3.left;
     private Vector3 right = Vector3.right;
     private Vector3 down = Vector3.down;
@@ -39,7 +39,7 @@ public class Puyo : MonoBehaviour
         unitArray[1].transform.parent = gameObject.transform;
         UpdateGameBoard();
         moveDownDelay = moveDownDefaultDelay;
-
+CanBeMoved = true;
     }
     public void SetPuyosColors(int color1,int color2)
     {
@@ -334,6 +334,7 @@ public class Puyo : MonoBehaviour
         gameObject.GetComponent<PlayerController>().enabled = false;
         DropPuyoUnits();
         //enabled = false;
+        CanBeMoved = false;
         StartCoroutine(SpawnNextBlock());
 
     }
