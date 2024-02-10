@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHandler
+public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHandler, IPointerClickHandler
 {
     [SerializeField] private float defaultTimeToStartFalling = .8f;
     private float timeToStartFalling;
     private Puyo puyo;
     private Vector2 direction;
     private Vector2 position;
-    
+    private bool isDragging;
 
 
     private void OnEnable()
@@ -30,18 +30,19 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
         {
             GameUIController.instance.PauseGame();
         }
-        if(Input.GetMouseButton(0))
-        {
-            timeToStartFalling -= Time.deltaTime;
-            if(timeToStartFalling<=0)
-            {
-                MoveDown();                
-            }
-        }
-        else
-        {
-            timeToStartFalling = defaultTimeToStartFalling;
-        }
+
+        //if(Input.GetMouseButton(0)) eto bylo uskorenie
+        //{
+         //   timeToStartFalling -= Time.deltaTime;
+         //   if(timeToStartFalling<=0)
+        //    {
+         //       MoveDown();                
+         //   }
+       // }
+        //else
+        //{
+        //    timeToStartFalling = defaultTimeToStartFalling;
+        //}
     }
 
     private void MoveDown()
@@ -52,8 +53,16 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
         }
     }
 
+    public void OnPointerClick(PointerEventData pointerEventData)
+    {
+        //if(puyo!=null)
+        if(!isDragging&& puyo != null && puyo.CanBeMoved)
+            puyo.RotateRight();
+            
+    }
     public void OnBeginDrag(PointerEventData eventData)
     {
+        isDragging = true;
         SwipeDetected(eventData.delta.x, eventData.delta.y);
         position = eventData.position;
     }
@@ -84,16 +93,25 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        
         if(puyo!=null && puyo.CanBeMoved)
         {
-            if (direction == Vector2.down)
+            if (direction == Vector2.down && Mathf.Abs(position.y - eventData.position.y) > 120)
             {
                 StartCoroutine(puyo.DropDown());
             }
-            else if (direction == Vector2.up)
-            {
+            else if (direction == Vector2.up&& Mathf.Abs(position.y - eventData.position.y) > 150)
+            {       
                 puyo.RotateRight();
             }
+        
+            
+                isDragging = false;
+                
+            
+            //else if (direction == Vector2.up)
+            //{       tut bylo pyo turn right
+            //}
         }
        
         direction = Vector2.zero;
