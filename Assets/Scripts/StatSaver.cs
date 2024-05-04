@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using YG;
 
 [System.Serializable]
 public class BoardData
 {
     public Vector2 position;
     public int status;
+   
 
     public BoardData(Vector2 pos, int stat)
     {
@@ -28,6 +30,7 @@ public class StatSaver : MonoBehaviour
 {
     public static StatSaver instance;
     [SerializeField] private PuyoSpawner spawner;
+    private static string YandexLeaderBoardName = "Leaderboard";
     private void Awake()
     {
         if (instance == null)
@@ -35,9 +38,13 @@ public class StatSaver : MonoBehaviour
         // PlayerPrefs.SetString("GameBoard", "");
         //Debug.Log(PlayerPrefs.GetString("GameBoard"));
     }
-    private void Start()
+    private void OnEnable()
     {
-       
+        YandexGame.GetDataEvent += LoadScene;
+    }
+    private void OnDisable()
+    {
+        YandexGame.GetDataEvent -= LoadScene;
     }
     public int GetBestScore()
     {
@@ -47,7 +54,11 @@ public class StatSaver : MonoBehaviour
     public void SaveBestScore(int score)
     {
         if(score > PlayerPrefs.GetInt(GlobalVariables.PlayerPrefs.BestScore, 0))
+        {
             PlayerPrefs.SetInt(GlobalVariables.PlayerPrefs.BestScore, score);
+            YandexGame.NewLeaderboardScores(YandexLeaderBoardName, score);
+        }
+            
     }
     public void SaveGameField()
     {

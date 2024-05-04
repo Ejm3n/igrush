@@ -17,8 +17,8 @@ MonoBehaviour:
   autoGameReadyAPI: 1
   playerInfoSimulation:
     authorized: 1
-    isMobile: 0
-    language: en
+    isMobile: 1
+    language: ru
     name: Player this
     uniqueID: 000
     photo: https://justplaygames.ru/public/icon_player.png
@@ -26,7 +26,7 @@ MonoBehaviour:
   showFirstAd: 1
   rewardedAfterClosing: 0
   adDisplayCalls: 0
-  fullscreenAdInterval: 60
+  fullscreenAdInterval: 120
   durationOfAdSimulation: 0.5
   loadAdWithDelaySimulation: 0
   testErrorOfRewardedAdsInEditor: 0
@@ -189,8 +189,8 @@ MonoBehaviour:
     name: TranslateCSV
   languages:
     ru: 1
-    en: 1
-    tr: 1
+    en: 0
+    tr: 0
     az: 0
     be: 0
     he: 0
@@ -216,6 +216,35 @@ MonoBehaviour:
     de: 0
     hi: 0
   fonts:
+    defaultFont: []
+    ru: []
+    en: []
+    tr: []
+    az: []
+    be: []
+    he: []
+    hy: []
+    ka: []
+    et: []
+    fr: []
+    kk: []
+    ky: []
+    lt: []
+    lv: []
+    ro: []
+    tg: []
+    tk: []
+    uk: []
+    uz: []
+    es: []
+    pt: []
+    ar: []
+    id: []
+    ja: []
+    it: []
+    de: []
+    hi: []
+  fontsTMP:
     defaultFont: []
     ru: []
     en: []

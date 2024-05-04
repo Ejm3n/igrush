@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameStart : MonoBehaviour
 {
+    public static bool GAMESTARTED = false;
     [SerializeField] private Canvas canvas;
     [SerializeField] private PuyoSpawner puyoSpawner;
 
@@ -19,6 +20,7 @@ public class GameStart : MonoBehaviour
         puyoSpawner.enabled = true;
         GameUIController.instance.SetStartCanvas(false);
         GameUIController.instance.SetEndCanvas(false);
+        GAMESTARTED = true;
         SoundManager.Instance.StartGameMusic();       
     }
 }

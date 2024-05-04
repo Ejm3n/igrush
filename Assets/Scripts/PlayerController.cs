@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
-            puyo.MoveDown();
+           StartCoroutine( puyo.DropDown());
             //} else if(Input.GetKeyDown(KeyCode.Q)){
             //    puyo.RotateLeft();
         }

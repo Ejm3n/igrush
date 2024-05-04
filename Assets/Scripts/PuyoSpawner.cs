@@ -7,7 +7,7 @@ public class PuyoSpawner : MonoBehaviour
 {
     public static Action<Puyo> NewPuyo;
 
-    public int Difficulty =0;
+    public int Difficulty = 0;
     [SerializeField] private float timeToSpeedUpdate = 60;
     [SerializeField] private float PuyoSpeed = 1;
     [SerializeField] private float PuyoMinSpeed = 1;
@@ -15,7 +15,7 @@ public class PuyoSpawner : MonoBehaviour
     [SerializeField] private float PuyoSpeedStep = 0.25f;
     [SerializeField] private float delaySpawn = 0.3f;
     private Puyo activePuyo;
-    private int[] nextPuyoColors = new int[2] { 0,0};
+    private int[] nextPuyoColors = new int[2] { 0, 0 };
     private bool downscaling = false;
     private float timer;
     private static bool comboThisRound;
@@ -30,7 +30,7 @@ public class PuyoSpawner : MonoBehaviour
 
     private void Update()
     {
-            UpdatePuyoSpeed();
+        UpdatePuyoSpeed();
     }
 
     public void SpawnPuyo()
@@ -39,12 +39,12 @@ public class PuyoSpawner : MonoBehaviour
         {
             StartCoroutine(DelayDelete());
         }
-        
+
         StartCoroutine(DelaySpawn());
     }
     public static void ComboedThisRound(bool comboed)
     {
-        if(!comboThisRound)
+        if (!comboThisRound)
             comboThisRound = true;
     }
     private bool GameIsOver()
@@ -74,18 +74,18 @@ public class PuyoSpawner : MonoBehaviour
         {
             Debug.Log("Game is over delay spawn");
             //GameObject.Find("GameOverCanvas").GetComponent<CanvasGroup>().alpha = 1;
-           
+
             SoundManager.Instance.ChangeMusicToEnd();
             GameUIController.instance.SetEndCanvas(true);
-           // GameBoard.DeleteAllPuyos();
-            enabled = false;          
+            // GameBoard.DeleteAllPuyos();
+            enabled = false;
         }
         else
         {
             //if combo than keep combo           
             if (!comboThisRound)
                 StartCoroutine(GameUIController.instance.ClearCombo());
-            
+
             GameUIController.instance.SetLastRoundComboed(comboThisRound);
             comboThisRound = false;
             activePuyo = Instantiate((GameObject)Resources.Load("Puyo"), transform.position, Quaternion.identity).GetComponent<Puyo>();
@@ -97,10 +97,10 @@ public class PuyoSpawner : MonoBehaviour
     }
     private bool PoofsFinished()
     {
-        List< PuyoUnit> puyoUnits = GameBoard.GetPuyoUnits();
-        foreach( PuyoUnit unit in puyoUnits )
-                {
-            if(unit.Poofing)
+        List<PuyoUnit> puyoUnits = GameBoard.GetPuyoUnits();
+        foreach (PuyoUnit unit in puyoUnits)
+        {
+            if (unit.Poofing)
                 return false;
         }
         return true;
@@ -119,17 +119,15 @@ public class PuyoSpawner : MonoBehaviour
     }
     public void NextPuyoSpeed()
     {
-            Difficulty++;
-            PuyoSpeed -= PuyoSpeedStep;
-            if (PuyoSpeed <= PuyoMinSpeed)
-            {
-                PuyoSpeed = PuyoMaxSpeed;
-                Difficulty = 0;
-            }
+        Difficulty++;
+        PuyoSpeed -= PuyoSpeedStep;
+        if (PuyoSpeed <= PuyoMinSpeed)
+        {
+            PuyoSpeed = PuyoMaxSpeed;
+            Difficulty = 0;
+        }
 
-            GameUIController.instance.ChangeBGSprites();
-           
-        
+        GameUIController.instance.ChangeBGSprites();
         //yield return new WaitForSeconds(timeToSpeedUpdate);
     }
     private void SetNextPuyos()
@@ -139,59 +137,5 @@ public class PuyoSpawner : MonoBehaviour
         GameUIController.instance.UpdateNextPyuos(nextPuyoColors[0], nextPuyoColors[1]);
 
     }
-    /// <summary>
-    /// старый метод почемуто в один момент переставал работать тут возникает вопрос какова хуя
-    /// </summary>
-    /// <returns></returns>
-    //private IEnumerator UpdatePuyoSpeed()
-    //{
-    //    bool downscaling = false;
-    //    while(!GameIsOver())
-    //    {
-    //        yield return new WaitForSeconds(timeToSpeedUpdate);
-    //        if (downscaling)
-    //        {
-    //            PuyoSpeed += PuyoSpeedStep;
-    //            if(PuyoSpeed >= PuyoMaxSpeed)
-    //                downscaling = false;
-    //        }
-    //        else if(!downscaling)
-    //        {
-    //            PuyoSpeed -= PuyoSpeedStep;
-    //            if (PuyoSpeed <= PuyoMinSpeed)
-    //                downscaling = true;
-    //        }
-    //        GameUIController.instance.ChangeBGSprites();
-    //        Debug.Log("puyo speed = " + PuyoSpeed);
-    //        Debug.Log("downscaling? " + downscaling);
-    //    }
-    //}
-    //private IEnumerator PoofPuyos(float spawnTansform, float target, float yPos, Sprite sprite)
-    //{
-    //    bool HalfTarget = true;
-    //    poofsFinished = false;
-    //    if (target == MathF.Round(target))
-    //        HalfTarget = false;
-    //    if (spawnTansform - target < 0)//тогда влево запускать
-    //    {
-
-    //    }
-    //    else
-    //    {
-    //        for (int i = (int)spawnTansform; i < (int)MathF.Round(target); i++)
-    //        {
-    //            HandChecker handChecker = Instantiate((GameObject)Resources.Load("HandChecker"), new Vector2(i, yPos), Quaternion.identity).GetComponent<HandChecker>();
-    //            handChecker.SetHandChecker(sprite, HandCheckerState.FullRight);
-    //            yield return new WaitForSeconds(handChecker.ReturnAnimLength());
-    //        }
-    //        if (HalfTarget)
-    //        {
-    //            HandChecker handChecker = Instantiate((GameObject)Resources.Load("HandChecker"), new Vector2(target - .5f, yPos), Quaternion.identity).GetComponent<HandChecker>();
-    //            handChecker.SetHandChecker(sprite, HandCheckerState.HalfRight);
-    //            yield return new WaitForSeconds(handChecker.ReturnAnimLength());
-    //        }
-    //    }
-    //    poofsFinished = true;
-
-    //}
+   
 }
