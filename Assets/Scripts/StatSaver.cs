@@ -90,6 +90,7 @@ public class StatSaver : MonoBehaviour
     }
     public void LoadScene()
     {
+        GameBoard.DeleteAllPuyos();
         BoardDataList boardDatas = LoadGameField();
         if (boardDatas != null && boardDatas.items.Count > 0)
         {

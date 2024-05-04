@@ -2830,9 +2830,8 @@ GameObject:
   - component: {fileID: 900590938}
   - component: {fileID: 900590937}
   - component: {fileID: 900590936}
-  - component: {fileID: 900590939}
   m_Layer: 5
-  m_Name: Button
+  m_Name: play Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2902,8 +2901,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 900590939}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1320668213}
+        m_TargetAssemblyTypeName: GameStart, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
@@ -2952,20 +2951,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900590934}
   m_CullTransparentMesh: 0
---- !u!114 &900590939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 900590934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 319616c301720bb448ae0681da724456, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 863545532}
-  puyoSpawner: {fileID: 1771075658}
 --- !u!1 &904464070
 GameObject:
   m_ObjectHideFlags: 0
@@ -4459,6 +4444,7 @@ GameObject:
   - component: {fileID: 1320668208}
   - component: {fileID: 1320668211}
   - component: {fileID: 1320668212}
+  - component: {fileID: 1320668213}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -4571,6 +4557,20 @@ MonoBehaviour:
   - {r: 0.9568628, g: 0.24705884, b: 0.6431373, a: 1}
   soundText: {fileID: 2013881947}
   musicText: {fileID: 1206894180}
+--- !u!114 &1320668213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320668207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 319616c301720bb448ae0681da724456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 863545532}
+  puyoSpawner: {fileID: 1771075658}
 --- !u!1 &1373282255
 GameObject:
   m_ObjectHideFlags: 0
@@ -4722,7 +4722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1391474671
 RectTransform:
   m_ObjectHideFlags: 0

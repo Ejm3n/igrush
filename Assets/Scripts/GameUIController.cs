@@ -101,10 +101,12 @@ public class GameUIController : MonoBehaviour
     {
         StatSaver.instance.SaveGameField();
         endCanvas.SetActive(what);
-        endScoreText.text = score.ToString()    ;
-        StatSaver.instance.SaveBestScore(score);
-        bestScoreText.text = StatSaver.instance.GetBestScore().ToString();
-        
+        if(what)
+        {
+            endScoreText.text = score.ToString();
+            StatSaver.instance.SaveBestScore(score);
+            bestScoreText.text = StatSaver.instance.GetBestScore().ToString();
+        }     
     }
     public void ContinueGameAfterLoss()
     {

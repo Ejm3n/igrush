@@ -13,11 +13,12 @@ public class GameStart : MonoBehaviour
     //    canvas = GameObject.Find("GameStartCanvas").GetComponent<Canvas>();
     //}
 
-    public void StartGame(){
+    public void StartGame(){      
         StatSaver.instance.LoadScene();
         //GameObject.Find("PuyoSpawner").GetComponent<PuyoSpawner>().enabled = true;
         puyoSpawner.enabled = true;
         GameUIController.instance.SetStartCanvas(false);
+        GameUIController.instance.SetEndCanvas(false);
         SoundManager.Instance.StartGameMusic();       
     }
 }

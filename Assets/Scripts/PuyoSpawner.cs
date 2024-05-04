@@ -77,7 +77,7 @@ public class PuyoSpawner : MonoBehaviour
            
             SoundManager.Instance.ChangeMusicToEnd();
             GameUIController.instance.SetEndCanvas(true);
-            GameBoard.ClearBoard();
+           // GameBoard.DeleteAllPuyos();
             enabled = false;          
         }
         else

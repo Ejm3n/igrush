@@ -90,7 +90,7 @@ public class GameBoard
         }
     }
     public static void Clear(float col, float row)
-    {
+    { 
         gameBoard[(int)col, (int)row] = null;
     }
 
@@ -101,9 +101,16 @@ public class GameBoard
 
     public static void Delete(Transform puyo)
     {
-        Vector2 pos = new Vector2(Mathf.Round(puyo.position.x), Mathf.Round(puyo.position.y));
-        gameBoard[(int)pos.x, (int)pos.y] = null;
-        UnityEngine.Object.Destroy(puyo.gameObject);
+        try
+        {
+            Vector2 pos = new Vector2(Mathf.Round(puyo.position.x), Mathf.Round(puyo.position.y));
+            gameBoard[(int)pos.x, (int)pos.y] = null;
+            UnityEngine.Object.Destroy(puyo.gameObject);
+        }
+        catch
+        {
+
+        }
     }
 
     public static bool WhatToDelete()
@@ -296,6 +303,17 @@ public class GameBoard
         foreach (Transform unit in unitsToDelete)
         {
             Delete(unit);
+        }
+    }
+
+    public static void DeleteAllPuyos()
+    {
+        for (int row = 0; row < height; row++)
+        {
+            for (int col = 0; col < width; col++)
+            {
+                    Delete(gameBoard[col, row]);
+            }
         }
     }
 
