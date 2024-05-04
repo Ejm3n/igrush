@@ -14,10 +14,10 @@ public class GameStart : MonoBehaviour
     //}
 
     public void StartGame(){
+        StatSaver.instance.LoadScene();
         //GameObject.Find("PuyoSpawner").GetComponent<PuyoSpawner>().enabled = true;
         puyoSpawner.enabled = true;
         GameUIController.instance.SetStartCanvas(false);
-        SoundManager.Instance.StartGameMusic();
-        
+        SoundManager.Instance.StartGameMusic();       
     }
 }

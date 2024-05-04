@@ -37,7 +37,7 @@ public class StatSaver : MonoBehaviour
     }
     private void Start()
     {
-        LoadScene();
+       
     }
     public int GetBestScore()
     {
@@ -62,7 +62,7 @@ public class StatSaver : MonoBehaviour
         PlayerPrefs.SetString("GameBoard", json);
         PlayerPrefs.SetInt("CurrentScore", GameUIController.instance.GetScore());
         PlayerPrefs.SetInt("PuyoSpeed", spawner.Difficulty);
-        
+        Debug.Log(json);
        //Debug.Log("playerprefs saved field = "+PlayerPrefs.GetString("GameBoard"));
 
     }
@@ -88,7 +88,7 @@ public class StatSaver : MonoBehaviour
         }
         
     }
-    private void LoadScene()
+    public void LoadScene()
     {
         BoardDataList boardDatas = LoadGameField();
         if (boardDatas != null && boardDatas.items.Count > 0)
@@ -108,6 +108,26 @@ public class StatSaver : MonoBehaviour
                 spawner.NextPuyoSpeed();
            
         }
+    }
+
+    /// <summary>
+    /// чистит + сохраняет
+    /// </summary>
+    /// <param name="linesToKeep"></param>
+    public void ClearTopLines(int linesToKeep)
+    {
+        BoardDataList boardDatas = LoadGameField();
+        BoardDataList newBoardDatas = new BoardDataList(new List<BoardData>());
+
+        for (int i = 0; i < boardDatas.items.Count; i++)
+        {
+            if (boardDatas.items[i].position.y < linesToKeep)
+            {
+                newBoardDatas.items.Add(boardDatas.items[i]);
+            }
+        }
+        string json = JsonUtility.ToJson(newBoardDatas);
+        PlayerPrefs.SetString("GameBoard", json);
     }
     private void OnApplicationQuit()
     {

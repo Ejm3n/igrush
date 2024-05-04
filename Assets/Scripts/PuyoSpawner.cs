@@ -30,10 +30,7 @@ public class PuyoSpawner : MonoBehaviour
 
     private void Update()
     {
-
             UpdatePuyoSpeed();
-        
-
     }
 
     public void SpawnPuyo()
@@ -81,8 +78,7 @@ public class PuyoSpawner : MonoBehaviour
             SoundManager.Instance.ChangeMusicToEnd();
             GameUIController.instance.SetEndCanvas(true);
             GameBoard.ClearBoard();
-            enabled = false;
-            
+            enabled = false;          
         }
         else
         {

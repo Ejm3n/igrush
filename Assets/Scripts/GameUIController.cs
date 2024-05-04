@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -25,16 +26,18 @@ public class GameUIController : MonoBehaviour
     private int score;
     private int currentBGSprite;
     private bool comboLastRound;
-    private string music = "MUSIC: ";
-    private string sound = "SOUND: ";
-    private string on = "ON";
-    private string off = "OFF";
+    private string music = "Ã”«€ ¿: ";
+    private string sound = "«¬” »: ";
+    private string on = "¬ À";
+    private string off = "¬€ À";
 
     private void Awake()
     {
         if (instance == null)
             instance = this;
+
     }
+
     private void Start()
     {
         SetStartCanvas(true);
@@ -58,8 +61,6 @@ public class GameUIController : MonoBehaviour
 
     public void UpdateScore(int whatToAdd)
     {
-        if (whatToAdd < 4)
-            Debug.LogError("whatToAdd<4 CRITICAL ERROR");
         int scoreToAdd = 10 + ((whatToAdd - 4) * 5);
         //Debug.Log("ÍÓÏ·Ó = " + combo + "\n score = " + score + "\n whatTOADD = " + whatToAdd);
         if (combo > 0)
@@ -98,15 +99,37 @@ public class GameUIController : MonoBehaviour
 
     public void SetEndCanvas(bool what)
     {
+        StatSaver.instance.SaveGameField();
         endCanvas.SetActive(what);
         endScoreText.text = score.ToString()    ;
         StatSaver.instance.SaveBestScore(score);
         bestScoreText.text = StatSaver.instance.GetBestScore().ToString();
+        
+    }
+    public void ContinueGameAfterLoss()
+    {
+        StatSaver.instance.ClearTopLines(10); //Œ¡–¿“»“‹ ¬Õ»Ã¿Õ»≈ ’¿–ƒ Œƒ(ÃÕ≈ œŒ≈¡¿“‹)
+        FindObjectOfType<GameStart>().StartGame();
+        Time.timeScale = 1f;
+    }
+
+    public void AcceptDefeat()
+    {
+        StatSaver.instance.CleanGameFieldSave();
     }
 
     public void PauseGame()
     {
         pauseState = !pauseState;
+        pauseCanvas.SetActive(pauseState);
+        if (pauseState)
+            Time.timeScale = 0f;
+        else
+            Time.timeScale = 1f;
+    }
+    public void PauseGame(bool what)
+    {
+        pauseState = what;
         pauseCanvas.SetActive(pauseState);
         if (pauseState)
             Time.timeScale = 0f;

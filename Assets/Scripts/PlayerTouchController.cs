@@ -11,7 +11,7 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
     private Vector2 direction;
     private Vector2 position;
     private bool isDragging;
-
+    private bool isMoving;// это для детекта что я веду в сторону и чтоб не срабатывал переворот после 
 
     private void OnEnable()
     {
@@ -30,21 +30,12 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
         {
             GameUIController.instance.PauseGame();
         }
-
-        //if(Input.GetMouseButton(0)) eto bylo uskorenie
-        //{
-         //   timeToStartFalling -= Time.deltaTime;
-         //   if(timeToStartFalling<=0)
-        //    {
-         //       MoveDown();                
-         //   }
-       // }
-        //else
-        //{
-        //    timeToStartFalling = defaultTimeToStartFalling;
-        //}
     }
-
+    private void OnApplicationPause(bool pause)
+    {
+        if(pause) 
+            GameUIController.instance.PauseGame(pause);
+    }
     private void MoveDown()
     {
         if (direction == Vector2.zero && puyo != null && puyo.CanBeMoved)
@@ -56,12 +47,13 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         //if(puyo!=null)
-        if(!isDragging&& puyo != null && puyo.CanBeMoved)
+        if(!isDragging&& puyo != null && puyo.CanBeMoved && !isMoving)
             puyo.RotateRight();
             
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
+        isMoving = true;
         isDragging = true;
         SwipeDetected(eventData.delta.x, eventData.delta.y);
         position = eventData.position;
@@ -79,6 +71,7 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
                     puyo.MoveLeft();
                 position.x = eventData.position.x;
             }
+
         }
            
     }
@@ -93,7 +86,7 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        
+        Debug.Log("POSITION Y = " + (position.y - eventData.position.y));
         if(puyo!=null && puyo.CanBeMoved)
         {
             if (direction == Vector2.down && Mathf.Abs(position.y - eventData.position.y) > 120)
@@ -104,21 +97,17 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
             {       
                 puyo.RotateRight();
             }
-        
-            
+                  
                 isDragging = false;
-                
-            
-            //else if (direction == Vector2.up)
-            //{       tut bylo pyo turn right
-            //}
         }
        
         direction = Vector2.zero;
+        isMoving = false;
     }
 
     private void UpdatePuyo(Puyo NewPuyo )
     {
+        isDragging = false;
         puyo = NewPuyo;
     }
 }
