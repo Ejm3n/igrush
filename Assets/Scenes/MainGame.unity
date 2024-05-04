@@ -7143,7 +7143,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1320668212}
         m_TargetAssemblyTypeName: GameUIController, Assembly-CSharp
-        m_MethodName: ContinueGameAfterLoss
+        m_MethodName: OnGetRewardClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
+using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using YG;
 
 public class GameUIController : MonoBehaviour
 {
@@ -21,6 +24,7 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private Color[] nextPyosColors;
     [SerializeField] private TextMeshProUGUI soundText;
     [SerializeField] private TextMeshProUGUI musicText;
+
     private bool pauseState = false;
     private int combo = -1;
     private int score;
@@ -31,17 +35,38 @@ public class GameUIController : MonoBehaviour
     private string on = "¬ À";
     private string off = "¬€ À";
 
+    private const int GetSecondChanceAdID = 1;
+
     private void Awake()
     {
         if (instance == null)
             instance = this;
 
     }
+    private void OnEnable()
+    {
+        YandexGame.RewardVideoEvent += GiveSecondLife;
+    }
+    private void OnDisable()
+    {
+        YandexGame.RewardVideoEvent -= GiveSecondLife;
+    }
+    private void GiveSecondLife(int id)
+    {
+        if (id != GetSecondChanceAdID)
+            return;
+        ContinueGameAfterLoss();
+    }
 
     private void Start()
     {
         SetStartCanvas(true);
         Time.timeScale = 1f;
+    }
+
+    public void OnGetRewardClicked()
+    {
+        YGAdsProvider.ShowRewardedAd(GetSecondChanceAdID);
     }
 
     public void UpdateNextPyuos(int puyo1,int puyo2)
