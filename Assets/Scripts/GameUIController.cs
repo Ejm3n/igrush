@@ -147,15 +147,12 @@ public class GameUIController : MonoBehaviour
 
     public void PauseGame()
     {
-        pauseState = !pauseState;
-        pauseCanvas.SetActive(pauseState);
-        if (pauseState)
-            Time.timeScale = 0f;
-        else
-            Time.timeScale = 1f;
+        PauseGame(!pauseState);
     }
     public void PauseGame(bool what)
     {
+        if (!PuyoSpawner.Ongoing)
+            return;
         pauseState = what;
         pauseCanvas.SetActive(pauseState);
         if (pauseState)

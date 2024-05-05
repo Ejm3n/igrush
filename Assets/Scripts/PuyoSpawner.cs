@@ -6,7 +6,7 @@ using UnityEngine;
 public class PuyoSpawner : MonoBehaviour
 {
     public static Action<Puyo> NewPuyo;
-
+    public static bool Ongoing = false;
     public int Difficulty = 0;
     [SerializeField] private float timeToSpeedUpdate = 60;
     [SerializeField] private float PuyoSpeed = 1;
@@ -26,6 +26,11 @@ public class PuyoSpawner : MonoBehaviour
         SetNextPuyos();
         SpawnPuyo();
         timer = timeToSpeedUpdate;
+        Ongoing = true;
+    }
+    private void OnDisable()
+    {
+        Ongoing = false ;
     }
 
     private void Update()
