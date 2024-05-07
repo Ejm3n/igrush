@@ -33,8 +33,8 @@ public class PlayerTouchController : MonoBehaviour, IBeginDragHandler, IDragHand
     }
     private void OnApplicationPause(bool pause)
     {
-        if(pause) 
-            GameUIController.instance.PauseGame(pause);
+        //if(pause) 
+        //    GameUIController.instance.PauseGame(pause);
     }
     private void MoveDown()
     {

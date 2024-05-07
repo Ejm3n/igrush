@@ -92,6 +92,7 @@ public class GameUIController : MonoBehaviour
             score += scoreToAdd * combo;
         // Debug.Log("счет после " + score);
         UpdateScoreText();
+        StatSaver.instance.SaveGameField();
     }
 
     public void UpdateCombo(int whatToAdd)

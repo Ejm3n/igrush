@@ -141,18 +141,18 @@ public class StatSaver : MonoBehaviour
         string json = JsonUtility.ToJson(newBoardDatas);
         PlayerPrefs.SetString("GameBoard", json);
     }
-    private void OnApplicationQuit()
-    {
-        SaveGameField();
-    }
-    private void OnApplicationFocus(bool focus)
-    {
-        if (!focus)
-            SaveGameField();
-    }
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause)
-            SaveGameField();
-    }
+    //private void OnApplicationQuit()
+    //{
+    //    SaveGameField();
+    //}
+    //private void OnApplicationFocus(bool focus)
+    //{
+    //    if (!focus)
+    //        SaveGameField();
+    //}
+    //private void OnApplicationPause(bool pause)
+    //{
+    //    if (pause)
+    //        SaveGameField();
+    //}
 }
