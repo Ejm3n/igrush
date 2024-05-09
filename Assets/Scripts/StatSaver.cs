@@ -74,13 +74,13 @@ public class StatSaver : MonoBehaviour
         PlayerPrefs.SetInt("CurrentScore", GameUIController.instance.GetScore());
         PlayerPrefs.SetInt("PuyoSpeed", spawner.Difficulty);
         Debug.Log(json);
-       //Debug.Log("playerprefs saved field = "+PlayerPrefs.GetString("GameBoard"));
-
     }
+
     public void CleanGameFieldSave()
     {
         PlayerPrefs.SetString("GameBoard", "");
     }
+
     public int GetCurrentScore()
     {
         return PlayerPrefs.GetInt("CurrentScore",0);

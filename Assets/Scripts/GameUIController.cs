@@ -5,6 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using YG;
+public enum Language
+{
+    ru,
+    en
+}
 
 public class GameUIController : MonoBehaviour
 {
@@ -30,10 +35,17 @@ public class GameUIController : MonoBehaviour
     private int score;
     private int currentBGSprite;
     private bool comboLastRound;
-    private string music = "Ã”«€ ¿: ";
-    private string sound = "«¬” »: ";
-    private string on = "¬ À";
-    private string off = "¬€ À";
+
+    //localisation
+    private string music_ru = "Ã”«€ ¿: ";
+    private string sound_ru = "«¬” »: ";
+    private string on_ru = "¬ À";
+    private string off_ru = "¬€ À";
+    private string music_en = "MUSIC: ";
+    private string sound_en = "SOUNDS: ";
+    private string on_en = "ON";
+    private string off_en = "OFF";
+    [SerializeField] private Language language;
 
     private const int GetSecondChanceAdID = 1;
 
@@ -41,6 +53,10 @@ public class GameUIController : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+        Debug.Log("lang = " + YandexGame.EnvironmentData.language);
+        if (YandexGame.EnvironmentData.language == "ru")
+            language = Language.ru;
+        else language = Language.en;
 
     }
     private void OnEnable()
@@ -164,19 +180,39 @@ public class GameUIController : MonoBehaviour
 
     public void SetMusicCross(bool active)
     {
-        if (active)
-            musicText.text = music + on;
+        if(language == Language.ru)
+        {
+            if (active)
+                musicText.text = music_ru + on_ru;
+            else
+                musicText.text = music_ru + off_ru;
+        }
         else
-            musicText.text = music+off;
+        {
+            if (active)
+                musicText.text = music_en + on_en;
+            else
+                musicText.text = music_en + off_en;
+        }
 
     }
 
     public void SetSoundCross(bool active)
     {
-        if (active)
-            soundText.text = sound + on;
+        if(language == Language.ru)
+        {
+            if (active)
+                soundText.text = sound_ru + on_ru;
+            else
+                soundText.text = sound_ru + off_ru;
+        }
         else
-            soundText.text = sound + off;
+        {
+            if (active)
+                soundText.text = sound_en + on_en;
+            else
+                soundText.text = sound_en + off_en;
+        }
     }
     public int GetScore()
     {
