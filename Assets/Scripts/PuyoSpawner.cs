@@ -54,6 +54,7 @@ public class PuyoSpawner : MonoBehaviour
         if (!comboThisRound)
             comboThisRound = true;
     }
+    
     public void NextPuyoSpeed()
     {
         Difficulty++;
@@ -93,11 +94,9 @@ public class PuyoSpawner : MonoBehaviour
         if (GameIsOver())
         {
             Debug.Log("Game is over delay spawn");
-            //GameObject.Find("GameOverCanvas").GetComponent<CanvasGroup>().alpha = 1;
 
             SoundManager.Instance.ChangeMusicToEnd();
             GameUIController.instance.SetEndCanvas(true);
-            // GameBoard.DeleteAllPuyos();
             enabled = false;
         }
         else
@@ -134,7 +133,5 @@ public class PuyoSpawner : MonoBehaviour
         nextPuyoColors[0] = UnityEngine.Random.Range(0, GameBoard.TotalColors);
         nextPuyoColors[1] = UnityEngine.Random.Range(0, GameBoard.TotalColors);
         GameUIController.instance.UpdateNextPyuos(nextPuyoColors[0], nextPuyoColors[1]);
-
     }
-   
 }
