@@ -6391,6 +6391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 1771075658}
+  puyoUnit: {fileID: -5098243750291664411, guid: a7c5334fbcd70f54f9224dff105a8f44, type: 3}
 --- !u!4 &1507895714
 Transform:
   m_ObjectHideFlags: 0

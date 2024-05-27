@@ -4,25 +4,25 @@ using UnityEngine.UI;
 
 public class GameBoard
 {
-    public static Transform[,] gameBoard = new Transform[6, 14];
-    public static int width = 6;
-    public static int height = 14;
-    public static int totalColors = 7;
+    public static Transform[,] GAMEBoard = new Transform[6, 14];
+    public static int Width = 6;
+    public static int Height = 14;
+    public static int TotalColors = 7;
 
     public static bool WithinBorders(Vector3 target)
     {
         return target.x > -1 &&
-            target.x < width &&
+            target.x < Width &&
             target.y > -1 &&
-            target.y < height;
+            target.y < Height;
     }
 
     public static bool FreeSpace(Vector3 target, Transform parentTransform)
     {
         if (WithinBorders(target))
         {
-            return gameBoard[(int)target.x, (int)target.y] == null ||
-                gameBoard[(int)target.x, (int)target.y].parent == parentTransform;
+            return GAMEBoard[(int)target.x, (int)target.y] == null ||
+                GAMEBoard[(int)target.x, (int)target.y].parent == parentTransform;
         }
         return false;
     }
@@ -30,13 +30,13 @@ public class GameBoard
     public static List<PuyoUnit> GetPuyoUnits()
     {
         List<PuyoUnit> units = new List<PuyoUnit>();
-        for (int row = 0; row < height; row++)
+        for (int row = 0; row < Height; row++)
         {
-            for (int col = 0; col < width; col++)
+            for (int col = 0; col < Width; col++)
             {
-                if (gameBoard[col, row] != null)
+                if (GAMEBoard[col, row] != null)
                 {
-                    units.Add(gameBoard[col, row].GetComponent<PuyoUnit>());
+                    units.Add(GAMEBoard[col, row].GetComponent<PuyoUnit>());
                 }
             }
         }
@@ -46,13 +46,13 @@ public class GameBoard
     public static List<PuyoUnit> GetPuyoUnitsWithoutFlyingOne()
     {
         List<PuyoUnit> units = new List<PuyoUnit>();
-        for (int row = 0; row < height; row++)
+        for (int row = 0; row < Height; row++)
         {
-            for (int col = 0; col < width; col++)
+            for (int col = 0; col < Width; col++)
             {
-                if (gameBoard[col, row] != null && !gameBoard[col, row].GetComponentInParent<Puyo>())
+                if (GAMEBoard[col, row] != null && !GAMEBoard[col, row].GetComponentInParent<Puyo>())
                 {
-                    units.Add(gameBoard[col, row].GetComponent<PuyoUnit>());
+                    units.Add(GAMEBoard[col, row].GetComponent<PuyoUnit>());
                 }
             }
         }
@@ -63,7 +63,7 @@ public class GameBoard
     {
         if (WithinBorders(new Vector3(col, row, 0)))
         {
-            return gameBoard[col, row] == null;
+            return GAMEBoard[col, row] == null;
         }
         return false;
     }
@@ -72,7 +72,7 @@ public class GameBoard
     {
         if (WithinBorders(new Vector3(col, row, 0)))
         {
-            return gameBoard[col, row].GetComponent<PuyoUnit>().colorIdx == puyoUnit.GetComponent<PuyoUnit>().colorIdx;
+            return GAMEBoard[col, row].GetComponent<PuyoUnit>().ColorIdx == puyoUnit.GetComponent<PuyoUnit>().ColorIdx;
         }
         return false;
     }
@@ -85,9 +85,9 @@ public class GameBoard
 
     public static void ClearBoard()
     {
-        for (int row = 0; row < height; row++)
+        for (int row = 0; row < Height; row++)
         {
-            for (int col = 0; col < width; col++)
+            for (int col = 0; col < Width; col++)
             {
                 Clear(col, row);
             }
@@ -96,12 +96,12 @@ public class GameBoard
 
     public static void Clear(float col, float row)
     { 
-        gameBoard[(int)col, (int)row] = null;
+        GAMEBoard[(int)col, (int)row] = null;
     }
 
     public static void Add(float col, float row, Transform obj)
     {
-        gameBoard[(int)col, (int)row] = obj;
+        GAMEBoard[(int)col, (int)row] = obj;
     }
 
     public static void Delete(Transform puyo)
@@ -109,8 +109,9 @@ public class GameBoard
         try
         {
             Vector2 pos = new Vector2(Mathf.Round(puyo.position.x), Mathf.Round(puyo.position.y));
-            gameBoard[(int)pos.x, (int)pos.y] = null;
-            Object.Destroy(puyo.gameObject);
+            GAMEBoard[(int)pos.x, (int)pos.y] = null;
+            if(puyo != null)
+                Object.Destroy(puyo.gameObject);
         }
         catch
         {
@@ -121,17 +122,15 @@ public class GameBoard
     public static bool WhatToDelete()
     {
         List<Transform> groupToDelete = new List<Transform>();
-        List<Transform> groupToPoof = new List<Transform>();
-
-        for (int row = 0; row < height; row++)
+        for (int row = 0; row < Height; row++)
         {
-            for (int col = 0; col < width; col++)
+            for (int col = 0; col < Width; col++)
             {
                 List<Transform> currentGroup = new List<Transform>();
-                if (gameBoard[col, row] != null)
+                if (GAMEBoard[col, row] != null)
                 {
 
-                    Transform current = gameBoard[col, row];
+                    Transform current = GAMEBoard[col, row];
                     if (groupToDelete.IndexOf(current) == -1)
                     {
                         AddNeighbors(current, currentGroup);
@@ -148,6 +147,7 @@ public class GameBoard
                 }
             }
         }
+        
         if (groupToDelete.Count != 0)
         {
             PuyoSpawner.ComboedThisRound(true);
@@ -163,13 +163,13 @@ public class GameBoard
 
     public static void DropAllColumns()
     {
-        for (int row = 0; row < height; row++)
+        for (int row = 0; row < Height; row++)
         {
-            for (int col = 0; col < width; col++)
+            for (int col = 0; col < Width; col++)
             {
-                if (gameBoard[col, row] != null)
+                if (GAMEBoard[col, row] != null)
                 {
-                    Transform puyoUnit = gameBoard[col, row];
+                    Transform puyoUnit = GAMEBoard[col, row];
                     puyoUnit.gameObject.GetComponent<PuyoUnit>().DropToFloorExternal();
 
                 }
@@ -198,7 +198,7 @@ public class GameBoard
 
             if (!IsEmpty(nextX, nextY) && ColorMatches(nextX, nextY, currentUnit))
             {
-                Transform nextUnit = gameBoard[nextX, nextY];
+                Transform nextUnit = GAMEBoard[nextX, nextY];
                 AddNeighbors(nextUnit, currentGroup);
 
                 if (direction == Vector3.up)
@@ -231,24 +231,24 @@ public class GameBoard
 
     public static void DeleteAllPuyos()
     {
-        for (int row = 0; row < height; row++)
+        for (int row = 0; row < Height; row++)
         {
-            for (int col = 0; col < width; col++)
+            for (int col = 0; col < Width; col++)
             {
-                    Delete(gameBoard[col, row]);
+                    Delete(GAMEBoard[col, row]);
             }
         }
     }
 
     public static bool AnyFallingBlocks()
     {
-        for (int row = height - 1; row >= 0; row--)
+        for (int row = Height - 1; row >= 0; row--)
         {
-            for (int col = 0; col < width; col++)
+            for (int col = 0; col < Width; col++)
             {
-                if (gameBoard[col, row] != null)
+                if (GAMEBoard[col, row] != null)
                 {
-                    PuyoUnit puyoUnit = gameBoard[col, row].gameObject.GetComponent<PuyoUnit>();
+                    PuyoUnit puyoUnit = GAMEBoard[col, row].gameObject.GetComponent<PuyoUnit>();
                     if (puyoUnit.IsForcedDownwards())
                     {
                         return true;

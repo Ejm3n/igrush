@@ -30,9 +30,9 @@ public class SpriteSides
 public class PuyoUnit : MonoBehaviour
 {
     public bool ActivelyFalling { get; private set; }  
-    public int colorIdx { get; private set; }
+    public int ColorIdx { get; private set; }
 
-    [SerializeField] private float TimeToDropNextStep = .05f;
+    [SerializeField] private float timeToDropNextStep = .05f;
     [SerializeField] private Sprite[] puyoSpriteArray;
     [SerializeField] private PuyoCorners[] puyoCornersArray;
     [SerializeField] private SpriteSides[] puyoSidesSpriteRenderers;
@@ -47,14 +47,14 @@ public class PuyoUnit : MonoBehaviour
 
     public void SetColorIdx(int index)
     {
-        colorIdx = index;
-        ChangeToOtherColor(colorIdx);
-        animator.SetTrigger(colorIdx.ToString());
+        ColorIdx = index;
+        ChangeToOtherColor(ColorIdx);
+        animator.SetTrigger(ColorIdx.ToString());
     }
 
     public int GetColorIdx()
     {
-        return colorIdx;
+        return ColorIdx;
     }
 
     public IEnumerator DropToFloor()
@@ -67,10 +67,11 @@ public class PuyoUnit : MonoBehaviour
             if (GameBoard.IsEmpty(currentX, row))
             {
                 forcedDownwards = true;
+                ActivelyFalling = true;
                 GameBoard.Clear(currentX, row + 1);
                 GameBoard.Add(currentX, row, gameObject.transform);
                 gameObject.transform.position += Vector3.down;
-                yield return new WaitForSecondsRealtime(TimeToDropNextStep);
+                yield return new WaitForSecondsRealtime(timeToDropNextStep);
             }
             else
             {
@@ -90,22 +91,22 @@ public class PuyoUnit : MonoBehaviour
 
     public void ChangeToOtherColor(int index)
     {
-        colorIdx = index;
-        GetComponent<SpriteRenderer>().sprite = puyoSpriteArray[colorIdx];
+        ColorIdx = index;
+        GetComponent<SpriteRenderer>().sprite = puyoSpriteArray[ColorIdx];
         foreach (SpriteSides spriteSide in puyoSidesSpriteRenderers)
         {
             if (spriteSide.side == PuyoSide.Left || spriteSide.side == PuyoSide.Right)
             {
-                spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoHorizontalSide;
+                spriteSide.spriteRenderer.sprite = puyoCornersArray[ColorIdx].puyoHorizontalSide;
 
             }
             else if (spriteSide.side == PuyoSide.Top || spriteSide.side == PuyoSide.Bot)
             {
-                spriteSide.spriteRenderer.sprite = puyoCornersArray[colorIdx].puyoVerticalSide;
+                spriteSide.spriteRenderer.sprite = puyoCornersArray[ColorIdx].puyoVerticalSide;
 
             }
         }
-        animator.SetTrigger(colorIdx.ToString());
+        animator.SetTrigger(ColorIdx.ToString());
     }
 
     public Vector3 RoundVector(Vector3 vect)
@@ -115,7 +116,7 @@ public class PuyoUnit : MonoBehaviour
 
     public Sprite GetRightCornerSprite()
     {
-        return puyoCornersArray[colorIdx].puyoHorizontalSide;
+        return puyoCornersArray[ColorIdx].puyoHorizontalSide;
     }
 
     public void SetCorner(PuyoSide side, bool what)

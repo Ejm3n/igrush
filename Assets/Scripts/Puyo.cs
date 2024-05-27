@@ -15,26 +15,28 @@ public class Puyo : MonoBehaviour
 {
     public GameObject[] unitArray = new GameObject[2];
 
-    public float fallSpeed = 1;
-    public float interval = 0;
-    public bool CanBeMoved =  true;
+    public float fallSpeed {private get; set; }
+    
+    public bool CanBeMoved { get; private set; }
+    [SerializeField] private GameObject puyoUnitPrefab;
+     [SerializeField] private float moveDownDefaultDelay = .03f;
+    [SerializeField] private float dropDownStepDelay = 0.01f;
     private Vector3 left = Vector3.left;
     private Vector3 right = Vector3.right;
     private Vector3 down = Vector3.down;
     private Vector3 up = Vector3.up;
-
+    private float interval;
     private bool puyoUnitDropsFinished = false;
 
     private bool canBeMovedDown = true;
-    [SerializeField] private float moveDownDefaultDelay = .03f;
-    [SerializeField] private float dropDownStepDelay = 0.01f;
+   
     private float moveDownDelay;
 
 
     void Awake()
     {
-        unitArray[0] = Instantiate((GameObject)Resources.Load("PuyoUnit"), transform.position, Quaternion.identity);
-        unitArray[1] = Instantiate((GameObject)Resources.Load("PuyoUnit"), new Vector2(transform.position.x + 1, transform.position.y), Quaternion.identity);
+        unitArray[0] = Instantiate(puyoUnitPrefab, transform.position, Quaternion.identity);
+        unitArray[1] = Instantiate(puyoUnitPrefab, new Vector2(transform.position.x + 1, transform.position.y), Quaternion.identity);
         unitArray[0].transform.parent = gameObject.transform;
         unitArray[1].transform.parent = gameObject.transform;
         UpdateGameBoard();
@@ -149,7 +151,7 @@ CanBeMoved = true;
         {
             Move(vect, unitArray[1].transform);
         }
-        else if (Mathf.Round(unitArray[1].transform.position.y) < GameBoard.height-1) // этот ужас переделать потом какнибудь 
+        else if (Mathf.Round(unitArray[1].transform.position.y) < GameBoard.Height-1) // этот ужас переделать потом какнибудь 
         {
             if (GetTetrominoState() == PuyoState.Up && (MoveLeft()))
             {
@@ -201,8 +203,8 @@ CanBeMoved = true;
     {
         PuyoUnit var0 = unitArray[0].GetComponent<PuyoUnit>();
         PuyoUnit var1 = unitArray[1].GetComponent<PuyoUnit>();
-        int var0Index = var0.colorIdx;
-        var0.ChangeToOtherColor(var1.colorIdx);
+        int var0Index = var0.ColorIdx;
+        var0.ChangeToOtherColor(var1.ColorIdx);
         var1.ChangeToOtherColor(var0Index);
 
     }

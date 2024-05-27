@@ -102,11 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3879a20930fd2a54bafaf4acd9b2332b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Poofing: 0
-  activelyFalling: 1
-  forcedDownwards: 0
-  handsAnim: 0
-  colorIdx: 0
   TimeToDropNextStep: 0.05
   puyoSpriteArray:
   - {fileID: 21300000, guid: 930fd7eac84688449bf471112ffec51f, type: 3}
@@ -144,6 +139,7 @@ MonoBehaviour:
   - side: 3
     spriteRenderer: {fileID: 6095052306788559133}
     animator: {fileID: 4246215561996029940}
+  animator: {fileID: 6390660602048402312}
 --- !u!95 &6390660602048402312
 Animator:
   serializedVersion: 5

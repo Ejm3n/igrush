@@ -30,6 +30,7 @@ public class StatSaver : MonoBehaviour
 {
     public static StatSaver instance;
     [SerializeField] private PuyoSpawner spawner;
+    [SerializeField] private PuyoUnit puyoUnit;
     private static string YandexLeaderBoardName = "Leaderboard";
 
     private void Awake()
@@ -110,7 +111,7 @@ public class StatSaver : MonoBehaviour
         {
             foreach (BoardData boardData in boardDatas.items)
             {
-                PuyoUnit newPuyo = Instantiate(Resources.Load("PuyoUnit"), boardData.position, Quaternion.identity).GetComponent<PuyoUnit>();
+                PuyoUnit newPuyo = Instantiate(puyoUnit, boardData.position, Quaternion.identity);
                 newPuyo.SetColorIdx(boardData.status);
                 newPuyo.StopFalling();
                 GameBoard.Add(boardData.position.x, boardData.position.y, newPuyo.transform);

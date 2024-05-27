@@ -28,6 +28,7 @@ public class PuyoSpawner : MonoBehaviour
         timer = timeToSpeedUpdate;
         Ongoing = true;
     }
+
     private void OnDisable()
     {
         Ongoing = false ;
@@ -47,20 +48,34 @@ public class PuyoSpawner : MonoBehaviour
 
         StartCoroutine(DelaySpawn());
     }
+
     public static void ComboedThisRound(bool comboed)
     {
         if (!comboThisRound)
             comboThisRound = true;
     }
+    public void NextPuyoSpeed()
+    {
+        Difficulty++;
+        PuyoSpeed -= PuyoSpeedStep;
+        if (PuyoSpeed <= PuyoMinSpeed)
+        {
+            PuyoSpeed = PuyoMaxSpeed;
+            Difficulty = 0;
+        }
+
+        GameUIController.instance.ChangeBGSprites();
+    }
+
     private bool GameIsOver()
     {
         return
-            GameBoard.gameBoard[(int)transform.position.x, (int)transform.position.y] != null ||
-            GameBoard.gameBoard[(int)transform.position.x + 1, (int)transform.position.y] != null;
+            GameBoard.GAMEBoard[(int)transform.position.x, (int)transform.position.y] != null ||
+            GameBoard.GAMEBoard[(int)transform.position.x + 1, (int)transform.position.y] != null;
     }
 
 
-    IEnumerator DelayDelete()
+    private IEnumerator DelayDelete()
     {
         GameBoard.DropAllColumns();
         yield return new WaitUntil(() => !GameBoard.AnyFallingBlocks());
@@ -71,9 +86,9 @@ public class PuyoSpawner : MonoBehaviour
 
     }
 
-    IEnumerator DelaySpawn()
+    private IEnumerator DelaySpawn()
     {
-        yield return new WaitUntil(() => !GameBoard.AnyFallingBlocks() && !GameBoard.WhatToDelete() && PoofsFinished());
+        yield return new WaitUntil(() => !GameBoard.AnyFallingBlocks() && !GameBoard.WhatToDelete());
         yield return new WaitForSecondsRealtime(delaySpawn);
         if (GameIsOver())
         {
@@ -100,16 +115,7 @@ public class PuyoSpawner : MonoBehaviour
             NewPuyo?.Invoke(activePuyo);
         }
     }
-    private bool PoofsFinished()
-    {
-        List<PuyoUnit> puyoUnits = GameBoard.GetPuyoUnits();
-        foreach (PuyoUnit unit in puyoUnits)
-        {
-            if (unit.Poofing)
-                return false;
-        }
-        return true;
-    }
+
     private void UpdatePuyoSpeed()
     {
         if (timer <= 0)
@@ -122,23 +128,11 @@ public class PuyoSpawner : MonoBehaviour
             timer -= Time.deltaTime;
         }
     }
-    public void NextPuyoSpeed()
-    {
-        Difficulty++;
-        PuyoSpeed -= PuyoSpeedStep;
-        if (PuyoSpeed <= PuyoMinSpeed)
-        {
-            PuyoSpeed = PuyoMaxSpeed;
-            Difficulty = 0;
-        }
-
-        GameUIController.instance.ChangeBGSprites();
-        //yield return new WaitForSeconds(timeToSpeedUpdate);
-    }
+  
     private void SetNextPuyos()
     {
-        nextPuyoColors[0] = UnityEngine.Random.Range(0, GameBoard.totalColors);
-        nextPuyoColors[1] = UnityEngine.Random.Range(0, GameBoard.totalColors);
+        nextPuyoColors[0] = UnityEngine.Random.Range(0, GameBoard.TotalColors);
+        nextPuyoColors[1] = UnityEngine.Random.Range(0, GameBoard.TotalColors);
         GameUIController.instance.UpdateNextPyuos(nextPuyoColors[0], nextPuyoColors[1]);
 
     }

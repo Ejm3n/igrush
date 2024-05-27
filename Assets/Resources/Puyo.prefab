@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5669510606171488376}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5870350787044187174
 MonoBehaviour:
@@ -48,8 +48,7 @@ MonoBehaviour:
   unitArray:
   - {fileID: 0}
   - {fileID: 0}
-  fallSpeed: 1
-  interval: 0
+  puyoUnitPrefab: {fileID: 552683445876342026, guid: a7c5334fbcd70f54f9224dff105a8f44, type: 3}
   moveDownDefaultDelay: 0.08
   dropDownStepDelay: 0.01
 --- !u!114 &6561337701616655516
