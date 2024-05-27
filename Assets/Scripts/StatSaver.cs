@@ -31,21 +31,23 @@ public class StatSaver : MonoBehaviour
     public static StatSaver instance;
     [SerializeField] private PuyoSpawner spawner;
     private static string YandexLeaderBoardName = "Leaderboard";
+
     private void Awake()
     {
         if (instance == null)
             instance = this;
-        // PlayerPrefs.SetString("GameBoard", "");
-        //Debug.Log(PlayerPrefs.GetString("GameBoard"));
     }
+
     private void OnEnable()
     {
         YandexGame.GetDataEvent += LoadScene;
     }
+
     private void OnDisable()
     {
         YandexGame.GetDataEvent -= LoadScene;
     }
+
     public int GetBestScore()
     {
        return PlayerPrefs.GetInt(GlobalVariables.PlayerPrefs.BestScore, 0);
@@ -85,6 +87,7 @@ public class StatSaver : MonoBehaviour
     {
         return PlayerPrefs.GetInt("CurrentScore",0);
     }
+
     public BoardDataList LoadGameField()
     {
         BoardDataList loadedData = new BoardDataList(new List<BoardData>());
@@ -96,9 +99,9 @@ public class StatSaver : MonoBehaviour
         catch
         {
             return null;
-        }
-        
+        }      
     }
+
     public void LoadScene()
     {
         GameBoard.DeleteAllPuyos();
@@ -109,7 +112,7 @@ public class StatSaver : MonoBehaviour
             {
                 PuyoUnit newPuyo = Instantiate(Resources.Load("PuyoUnit"), boardData.position, Quaternion.identity).GetComponent<PuyoUnit>();
                 newPuyo.SetColorIdx(boardData.status);
-                newPuyo.activelyFalling = false;
+                newPuyo.StopFalling();
                 GameBoard.Add(boardData.position.x, boardData.position.y, newPuyo.transform);
             }
             GameUIController.instance.SetCurrentScore(GetCurrentScore());
@@ -123,7 +126,7 @@ public class StatSaver : MonoBehaviour
     }
 
     /// <summary>
-    /// чистит + сохраняет
+    ///  Clear top lines of the game field
     /// </summary>
     /// <param name="linesToKeep"></param>
     public void ClearTopLines(int linesToKeep)
@@ -141,18 +144,4 @@ public class StatSaver : MonoBehaviour
         string json = JsonUtility.ToJson(newBoardDatas);
         PlayerPrefs.SetString("GameBoard", json);
     }
-    //private void OnApplicationQuit()
-    //{
-    //    SaveGameField();
-    //}
-    //private void OnApplicationFocus(bool focus)
-    //{
-    //    if (!focus)
-    //        SaveGameField();
-    //}
-    //private void OnApplicationPause(bool pause)
-    //{
-    //    if (pause)
-    //        SaveGameField();
-    //}
 }

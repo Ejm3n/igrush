@@ -29,22 +29,20 @@ public class SpriteSides
 
 public class PuyoUnit : MonoBehaviour
 {
-    public bool Poofing;
-    public bool activelyFalling = true;
-    public bool forcedDownwards = false;
-    public bool handsAnim = false;
-    public int colorIdx;
+    public bool ActivelyFalling { get; private set; }  
+    public int colorIdx { get; private set; }
 
     [SerializeField] private float TimeToDropNextStep = .05f;
     [SerializeField] private Sprite[] puyoSpriteArray;
     [SerializeField] private PuyoCorners[] puyoCornersArray;
     [SerializeField] private SpriteSides[] puyoSidesSpriteRenderers;
-    private Animator animator;
+    [SerializeField] private Animator animator;
 
+    private bool forcedDownwards = false;
     void Awake()
     {
-        animator = GetComponent<Animator>();
-       // SetColorIdx(Random.Range(0, puyoSpriteArray.Length));  
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
 
     public void SetColorIdx(int index)
@@ -61,7 +59,6 @@ public class PuyoUnit : MonoBehaviour
 
     public IEnumerator DropToFloor()
     {
-
         Vector3 currentPos = RoundVector(gameObject.transform.position);
 
         for (int row = (int)currentPos.y - 1; row >= 0; row--)
@@ -77,13 +74,13 @@ public class PuyoUnit : MonoBehaviour
             }
             else
             {
-                activelyFalling = false;
+                ActivelyFalling = false;
                 forcedDownwards = false;
                 break;
             }
         }
         forcedDownwards = false;
-        activelyFalling = false;
+        ActivelyFalling = false;
     }
 
     public void DropToFloorExternal()
@@ -110,42 +107,15 @@ public class PuyoUnit : MonoBehaviour
         }
         animator.SetTrigger(colorIdx.ToString());
     }
+
     public Vector3 RoundVector(Vector3 vect)
     {
         return new Vector2(Mathf.Round(vect.x), Mathf.Round(vect.y));
     }
 
-    public void EnlargeHands(float blocksRange)
-    {
-        Poofing = true;
-        PuyoSide side = PuyoSide.Right;
-        if (blocksRange < 0)
-            side = PuyoSide.Left;
-        foreach (SpriteSides spriteSide in puyoSidesSpriteRenderers)
-        {
-            if (side == spriteSide.side)
-            {
-                spriteSide.spriteRenderer.enabled = true;
-                spriteSide.animator.SetTrigger(blocksRange.ToString() + "Block");
-                StartCoroutine(WaitForPoofAnimation(spriteSide.animator.runtimeAnimatorController.animationClips[0].length));
-            }
-        }
-    }
-    private IEnumerator WaitForPoofAnimation(float timeToWait)
-    {
-        yield return new WaitForSeconds(timeToWait);
-        Poofing = false;
-    }
     public Sprite GetRightCornerSprite()
     {
         return puyoCornersArray[colorIdx].puyoHorizontalSide;
-    }
-    public void EnlargeHands()
-    {
-        foreach (SpriteSides spriteSide in puyoSidesSpriteRenderers)
-        {
-            spriteSide.animator.SetTrigger("1Block");
-        }
     }
 
     public void SetCorner(PuyoSide side, bool what)
@@ -159,4 +129,13 @@ public class PuyoUnit : MonoBehaviour
         }
     }
 
+    public void StopFalling()
+    {
+        ActivelyFalling = false;
+    }
+
+    public bool IsForcedDownwards()
+    {
+        return forcedDownwards;
+    }
 }

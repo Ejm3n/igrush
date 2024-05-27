@@ -279,8 +279,8 @@ CanBeMoved = true;
 
     bool ActivelyFalling()
     {
-        return unitArray[0].GetComponent<PuyoUnit>().activelyFalling ||
-            unitArray[1].GetComponent<PuyoUnit>().activelyFalling;
+        return unitArray[0].GetComponent<PuyoUnit>().ActivelyFalling ||
+            unitArray[1].GetComponent<PuyoUnit>().ActivelyFalling;
     }
 
     ///////////////////////////

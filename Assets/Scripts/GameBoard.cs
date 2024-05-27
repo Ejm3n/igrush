@@ -7,7 +7,8 @@ public class GameBoard
     public static Transform[,] gameBoard = new Transform[6, 14];
     public static int width = 6;
     public static int height = 14;
-    public static int totalColors = 7;//важно чтоб в пуё юнит было стокаже тотал и в юай контролере чтоб было тотал калорс тоже 
+    public static int totalColors = 7;
+
     public static bool WithinBorders(Vector3 target)
     {
         return target.x > -1 &&
@@ -15,6 +16,7 @@ public class GameBoard
             target.y > -1 &&
             target.y < height;
     }
+
     public static bool FreeSpace(Vector3 target, Transform parentTransform)
     {
         if (WithinBorders(target))
@@ -40,6 +42,7 @@ public class GameBoard
         }
         return units;
     }
+
     public static List<PuyoUnit> GetPuyoUnitsWithoutFlyingOne()
     {
         List<PuyoUnit> units = new List<PuyoUnit>();
@@ -55,6 +58,7 @@ public class GameBoard
         }
         return units;
     }
+
     public static bool IsEmpty(int col, int row)
     {
         if (WithinBorders(new Vector3(col, row, 0)))
@@ -78,9 +82,9 @@ public class GameBoard
         Vector2 newPos = new Vector2(pos.x + direction.x, pos.y + direction.y);
         return !IsEmpty((int)newPos.x, (int)newPos.y) && ColorMatches((int)newPos.x, (int)newPos.y, puyoUnitTransform);
     }
+
     public static void ClearBoard()
     {
-
         for (int row = 0; row < height; row++)
         {
             for (int col = 0; col < width; col++)
@@ -89,6 +93,7 @@ public class GameBoard
             }
         }
     }
+
     public static void Clear(float col, float row)
     { 
         gameBoard[(int)col, (int)row] = null;
@@ -105,11 +110,11 @@ public class GameBoard
         {
             Vector2 pos = new Vector2(Mathf.Round(puyo.position.x), Mathf.Round(puyo.position.y));
             gameBoard[(int)pos.x, (int)pos.y] = null;
-            UnityEngine.Object.Destroy(puyo.gameObject);
+            Object.Destroy(puyo.gameObject);
         }
         catch
         {
-
+            Debug.Log("Error deleting puyo");
         }
     }
 
@@ -123,7 +128,6 @@ public class GameBoard
             for (int col = 0; col < width; col++)
             {
                 List<Transform> currentGroup = new List<Transform>();
-
                 if (gameBoard[col, row] != null)
                 {
 
@@ -133,7 +137,6 @@ public class GameBoard
                         AddNeighbors(current, currentGroup);
                     }
                 }
-
                 if (currentGroup.Count >= 4)
                 {
                     GameUIController.instance.UpdateCombo(1);
@@ -141,58 +144,21 @@ public class GameBoard
                     foreach (Transform puyo in currentGroup)
                     {
                         groupToDelete.Add(puyo);
-                        //groupToPoof.AddRange(AddNeighbors(puyo));
                     }
                 }
             }
         }
-
         if (groupToDelete.Count != 0)
         {
             PuyoSpawner.ComboedThisRound(true);
             DeleteUnits(groupToDelete);
             SoundManager.Instance.PlayRazbitie();
-            //PoofUnits(groupToPoof);
             return true;
         }
         else
         {
             return false;
         }
-    }
-
-    private static void PoofUnits(List<Transform> groupToPoof)
-    {
-        foreach (Transform puyo in groupToPoof)
-        {
-            if (puyo != null)
-            {
-                PuyoUnit unit = puyo.GetComponent<PuyoUnit>();
-                // puyo.GetComponent<PuyoUnit>().EnlargeHands();
-                for (int i = (int)Mathf.Round(puyo.position.x) + 1; i < width - 1; i++)//right
-                {
-                    if (!IsEmpty((int)i, (int)puyo.position.y) && ColorMatches((int)i, (int)Mathf.Round(puyo.position.y), puyo))
-                    {
-                        Transform puyoToGrab = gameBoard[i, (int)Mathf.Round(puyo.position.y)].GetComponent<Transform>();
-                        float middlePos = Mathf.Round(puyo.position.x) + Mathf.Round(puyoToGrab.position.x) / 2;
-                        Debug.Log("MiddlePos = " + middlePos);
-                        unit.EnlargeHands(middlePos - Mathf.Round(puyo.position.x));
-                        puyoToGrab.GetComponent<PuyoUnit>().EnlargeHands(middlePos - Mathf.Round(puyoToGrab.position.x));
-                        break;
-                    }
-                    else if (!IsEmpty((int)i, (int)puyo.position.y))
-                    {
-                        unit.EnlargeHands(i - Mathf.Round(puyo.position.x));
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    public static bool AnyPoofAnimationsLeft()
-    {
-        return false;
     }
 
     public static void DropAllColumns()
@@ -235,7 +201,6 @@ public class GameBoard
                 Transform nextUnit = gameBoard[nextX, nextY];
                 AddNeighbors(nextUnit, currentGroup);
 
-                //добавленный бред про сайды
                 if (direction == Vector3.up)
                 {
                     puyoUnit.SetCorner(PuyoSide.Top, true);
@@ -254,48 +219,6 @@ public class GameBoard
                 }
             }
         }
-    }
-
-    static List<Transform> AddNeighbors(Transform currentUnit)
-    {
-
-        PuyoUnit puyoUnit = currentUnit.GetComponent<PuyoUnit>();
-        List<Transform> neighbors = new List<Transform>();
-        DisableSides(puyoUnit);
-        Vector3[] directions = { Vector3.up, Vector3.down, Vector3.right, Vector3.left };
-        if (currentUnit == null)
-            return neighbors;
-
-        foreach (Vector3 direction in directions)
-        {
-            int nextX = (int)(Mathf.Round(currentUnit.position.x) + Mathf.Round(direction.x));
-            int nextY = (int)(Mathf.Round(currentUnit.position.y) + Mathf.Round(direction.y));
-
-            if (!IsEmpty(nextX, nextY))
-            {
-                Transform nextUnit = gameBoard[nextX, nextY];
-                neighbors.Add(nextUnit);
-
-                //добавленный бред про сайды
-                if (direction == Vector3.up)
-                {
-                    puyoUnit.SetCorner(PuyoSide.Top, true);
-                }
-                else if (direction == Vector3.right)
-                {
-                    puyoUnit.SetCorner(PuyoSide.Right, true);
-                }
-                else if (direction == Vector3.left)
-                {
-                    puyoUnit.SetCorner(PuyoSide.Left, true);
-                }
-                else if (direction == Vector3.down)
-                {
-                    puyoUnit.SetCorner(PuyoSide.Bot, true);
-                }
-            }
-        }
-        return neighbors;
     }
 
     static void DeleteUnits(List<Transform> unitsToDelete)
@@ -326,11 +249,11 @@ public class GameBoard
                 if (gameBoard[col, row] != null)
                 {
                     PuyoUnit puyoUnit = gameBoard[col, row].gameObject.GetComponent<PuyoUnit>();
-                    if (puyoUnit.forcedDownwards)
+                    if (puyoUnit.IsForcedDownwards())
                     {
                         return true;
                     }
-                    else if (puyoUnit.activelyFalling)
+                    else if (puyoUnit.ActivelyFalling)
                     {
                         return true;
                     }
@@ -348,34 +271,3 @@ public class GameBoard
         puyoUnit.SetCorner(PuyoSide.Bot, false);
     }
 }
-/// <summary>
-/// попытка не пытка. Хотел имбануть но помому обосрался сделаю в итоге как первая идея была.
-/// </summary>
-/// <param name="puyosToPoof"></param>
-//private static void PoofUnits(List<Transform> puyosToPoof)
-//{
-//    foreach (Transform puyo in puyosToPoof)
-//    {
-//        if (puyo != null)
-//        {
-//            Sprite cornerSprite = puyo.GetComponent<PuyoUnit>().GetRightCornerSprite();
-//            for (int i = (int)Mathf.Round(puyo.position.x) + 1; i < width - 1; i++)//right
-//            {
-//                if (!IsEmpty((int)i, (int)puyo.position.y) && ColorMatches((int)i, (int)Mathf.Round(puyo.position.y), puyo))
-//                {
-//                    Transform puyoToGrab = gameBoard[i, (int)Mathf.Round(puyo.position.y)].GetComponent<Transform>();
-//                    float middlePos = Mathf.Round(puyo.position.x) + Mathf.Round(puyoToGrab.position.x) / 2;
-//                    Debug.Log("MiddlePos = " + middlePos);
-//                    PuyoSpawner.PoofPuyos(Mathf.Round(puyo.position.x),middlePos,puyo.position.y, cornerSprite);
-//                    PuyoSpawner.PoofPuyos(Mathf.Round(puyoToGrab.position.x), middlePos, puyo.position.y, cornerSprite);
-//                    break;
-//                }
-//                else if(!IsEmpty((int)i, (int)puyo.position.y))
-//                {
-//                    PuyoSpawner.PoofPuyos(Mathf.Round(puyo.position.x), i, puyo.position.y, cornerSprite);
-//                    break;
-//                }
-//            }
-//        }
-//    }
-//}
